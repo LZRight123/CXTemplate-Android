@@ -1,0 +1,161 @@
+#!/bin/sh
+
+#我的终端莫认翻墙 先关掉
+unset http_proxy;
+unset https_proxy;
+echo "已关闭代理";
+script_dir=$(cd $(dirname $0);pwd)
+# projectDirectory=$(dirname $script_dir)
+# echo "脚本目录=${script_dir}"
+# echo "工程目录=${projectDirectory}"
+type=$1
+echo "type: ${type}"
+echo "💊👌🐒🐂👏🏿🌹⬆️㊙️🐱🎩🐂🐲✈️👀🚀🔥🎮💕🏆🎁 💯 🌹"
+
+
+function callPublishVersion() {
+    echo "掉我们的发版接口 ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️  ⬆️"
+    downloadKey="public/apks/${type}/${apk_name}"
+    downloadUrl="https://files-static.naduo.love/${downloadKey}"
+    if [ "$type" = "release" ]; then
+        update_env="生产"
+        baseUrl="https://bellybook-app-api.bellybook.cn"
+    else
+        update_env="测试"
+        baseUrl="https://staging-bellybook-app-api.bellybook.cn"
+    fi
+    echo "环境 $update_env"
+    # 掉我们的发版接口
+    curl -X POST "${baseUrl}/api/v1/web/version/publish_version" \
+    -H 'Content-Type: application/json' \
+    -d '{
+        "channel": "android",
+        "version_name":"'"${version_name}"'",
+        "version_number":"'"${version_code}"'",
+        "force_update":false,
+        "release_notes": ["机器人发版本。"]
+    }'
+    echo "\n查看一下结果 ${baseUrl}/api/v1/public/get_app_version_info"
+#    curl -X GET "${baseUrl}/api/v1/public/get_app_version_info"
+}
+
+function upload(){
+    ossShell=~/opt/ossutilmac64
+    bucket_name="bellybook-oss"
+
+    apk_dir="${script_dir}/build/outputs/apk"
+#    universal_apk_dir="${apk_dir}/universal/$type"
+    universal_apk_dir="${apk_dir}/$type"
+    apk_path=$(find ${universal_apk_dir} -name "*.apk")
+    apk_name=${apk_path##*/}
+    version_name=$(echo $apk_name | sed 's/^v//;s/_.*//')
+    version_code=$(grep VERSION_CODE version.properties | cut -d'=' -f2)
+
+
+    echo "universal_apk_dir: ${universal_apk_dir}"
+    echo "apk_name: ${apk_name}"
+    echo "版本号: ${version_name}(Build ${version_code})"
+
+    # 本地文件路径
+    # 测试只需传通用包
+    universal_file_path=$universal_apk_dir/$apk_name
+    oss_apk_dir="oss://$bucket_name/apk/$type"
+
+    if [ "$type" = "release" ]; then
+        # 正式环境上传流程
+        # 1. 上传通用包
+        universal_remote_file_path="$oss_apk_dir/histroy/$apk_name"
+        echo "正式环境上传 OSS local apk: ${universal_file_path} 到 ${universal_remote_file_path}"
+        $ossShell cp -f $universal_file_path $universal_remote_file_path
+        # 2. 将通用包重命名为 bellbook.apk 并上传至根目录, 部署在自己服务器
+        $ossShell cp -f $universal_remote_file_path "$oss_apk_dir/template.apk"
+    else
+        # 测试环境上传流程
+        # 1. 上传通用包至根目录 bellbook.apk
+        universal_remote_file_path="$oss_apk_dir/template.apk"
+        echo "测试环境上传 OSS local apk: ${universal_file_path} 到 ${universal_remote_file_path}"
+        $ossShell cp -f $universal_file_path $universal_remote_file_path
+    fi
+
+#    # 3. 上传 google 包
+#    google_file_path="$apk_dir/google/$type/$apk_name"
+#    google_remote_file_path="$oss_apk_dir/google/$apk_name"
+#    $ossShell cp -f $google_file_path $google_remote_file_path
+#    # 4. 上传 china 包 针对中国镜内应用市场
+#    china_file_path="$apk_dir/china/$type/$apk_name"
+#    china_remote_file_path="$oss_apk_dir/china/$apk_name"
+#    $ossShell cp -f $china_file_path $china_remote_file_path
+}
+
+function webhook() {
+    if [ "$type" = "release" ]; then
+        update_env="生产"
+    else
+        update_env="测试"
+    fi
+    updatetime=`date +'%Y-%m-%d %H:%M:%S'`
+    # 更新内容
+    update_description="- 回忆模块重构\n- 创建云朵精简"
+    curl -X POST -H "Content-Type: application/json" \
+	-d '{
+	"msg_type": "post",
+	"content": {
+		"post": {
+			"zh_cn": {
+				"title": "App 更新通知",
+				"content": [
+                    [{"tag": "text","text": "您的应用上传了新版本"}],
+                    [{"tag": "text","text": "应用名称：那朵('"${update_env}"')"}],
+                    [{"tag": "text","text": "应用类型：Android"}],
+                    [{"tag": "text","text": "版本信息：'"${version_name}"'(Build '"${version_code}"')"}],
+                    [{"tag": "text","text": "更新时间：'"${updatetime}"'"}],
+                    [{"tag": "text","text": "更新内容：'"${update_description}"'"}],
+                    [{"tag": "text","text": "版本查询：'"${baseUrl}"'/naduo/api/version/getVersion?platform=android"}],
+
+					[
+						{
+							"tag": "a",
+							"text": "点链接查看更新",
+							"href": "https://naduo.love"
+						},
+						{
+							"tag": "at",
+							"user_id": "all",
+                            "user_name": "所有人"
+						}
+				    ]
+                ]
+			}
+		}
+	}
+    }' \
+    https://open.feishu.cn/open-apis/bot/v2/hook/ef329f6f-c9c5-4d59-91d1-a9c199ab1cdd
+
+    # 小群-研究机器人的
+    # https://open.feishu.cn/open-apis/bot/v2/hook/902307e8-cb6f-4e9c-b2d9-7525161bac56
+    # 大群
+    # https://open.feishu.cn/open-apis/bot/v2/hook/ef329f6f-c9c5-4d59-91d1-a9c199ab1cdd
+
+}
+
+function start()
+{
+    starttime=`date +'%Y-%m-%d %H:%M:%S'`
+    echo "上传开始时间 : " ${starttime}
+    upload
+    if [ "$type" = "release" ]; then
+        echo "正式 手动掉用发版接口"
+    else
+        echo "测试 自动掉用发版接口"
+#        callPublishVersion
+#        webhook
+    fi
+
+
+    endtime=`date +'%Y-%m-%d %H:%M:%S'`
+    echo "结束时间 : " ${endtime}
+    echo "您有一个新的App版本，请及时更新👌 🔥 👌 🔥 💯 🔥 💯 🔥 💯 🔥 💯 👌 🔥 👌 🔥 💯 🔥 💯 🔥 💯 🔥 💯 🔥 💯 🔥 💯 🔥"
+}
+
+start
+# upload

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <color name="main">#FFFFC700</color>
+    <color name="f1">#FF000000</color>
+    <color name="f2">#FF575757</color>
+    <color name="f3">#FFA7A7A7</color>
+    <color name="b1">#FFFCFCFC</color>
+    <color name="b2">#FFF7F7F7</color>
+    <color name="b3">#FF7F7F7F</color>
+    <color name="b4">#FFDBDADD</color>
+    <color name="l1">#FFEBEBEB</color>
+    <color name="l2">#FFE1E1E1</color>
+    <color name="error">#FFBE2925</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="orange">#FFF07748</color>
+    <color name="blue">#FF854DF4</color>
+    <color name="perpule">#FFAA97BE</color>
+    <color name="pink">#FFCD6484</color>
+    <color name="red">#FFD95B5F</color>
+    <color name="yellow">#FFF4BA5E</color>
+
+    <!-- 自定义主题 -->
+    <bool name="matisse_status_bar_dark_icons" tools:ignore="MissingDefaultResource">true</bool>
+    <bool name="matisse_navigation_bar_dark_icons" tools:ignore="MissingDefaultResource">true</bool>
+    <color name="matisse_status_bar_color">#FFF7F7F7</color>
+    <color name="matisse_navigation_bar_color">#FFF7F7F7</color>
+    <color name="matisse_main_page_background_color">#FFF7F7F7</color>
+    <color name="matisse_preview_page_background_color">#FFF7F7F7</color>
+    <color name="matisse_preview_page_controller_background_color">#FFF7F7F7</color>
+    <color name="matisse_image_item_background_color">#CCFFFFFF</color>
+    <color name="matisse_image_item_border_color_when_selected">#FF000000</color>
+    <color name="matisse_capture_icon_color">#FF000000</color>
+    <color name="matisse_top_bar_background_color">#FFF7F7F7</color>
+    <color name="matisse_top_bar_icon_color">#FF000000</color>
+    <color name="matisse_top_bar_text_color">#FF000000</color>
+    <color name="matisse_dropdown_menu_background_color">#FFF7F7F7</color>
+    <color name="matisse_dropdown_menu_text_color">#FF000000</color>
+    <color name="matisse_bottom_navigation_bar_background_color">#FFF7F7F7</color>
+    <color name="matisse_preview_text_color">#FF000000</color>
+    <color name="matisse_preview_text_color_if_disable">#99000000</color>
+    <color name="matisse_sure_text_color">#FF000000</color>
+    <color name="matisse_sure_text_color_if_disable">#99000000</color>
+    <color name="matisse_back_text_color">#FF000000</color>
+    <color name="matisse_check_box_circle_color">#FF000000</color>
+    <color name="matisse_check_box_circle_fill_color">#FF000000</color>
+    <color name="matisse_check_box_circle_color_if_disable">#80000000</color>
+    <color name="matisse_check_box_fill_color">#FF000000</color>
+    <color name="matisse_check_box_text_color">#FFFCFCFC</color>
+    <color name="matisse_video_icon_color">#99000000</color>
+    <color name="matisse_circular_loading_color">#FF000000</color>
+</resources>
