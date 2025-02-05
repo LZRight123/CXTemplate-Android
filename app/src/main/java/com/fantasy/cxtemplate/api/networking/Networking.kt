@@ -8,7 +8,7 @@ import com.fantasy.components.network.interceptor.LogInterceptor
 import com.fantasy.components.network.moshi.moshi
 import com.fantasy.components.tools.isDebugBuilder
 import com.fantasy.components.tools.Apphelper
-import com.fantasy.components.widget.XMToastType
+import com.fantasy.components.widget.CXToastType
 import com.fantasy.cxtemplate.AppConfig
 import com.fantasy.cxtemplate.manager.userManager
 import kotlinx.coroutines.launch
@@ -105,7 +105,7 @@ object Networking {
                     userManager.logout()
                     Apphelper.toast(
                         msg = response.message.ifEmpty { "登录过期。请重新登录" },
-                        type = XMToastType.error
+                        type = CXToastType.error
                     )
                 }
 
@@ -122,18 +122,18 @@ object Networking {
                 }
                 500 -> Apphelper.toast(
                     msg = response.message.ifEmpty { "服务出错。请联系开发者" },
-                    type = XMToastType.error
+                    type = CXToastType.error
                 )
                 502 -> Apphelper.toast(
                     msg = response.message.ifEmpty { "服务器重启中，请稍后" },
                 )
                 else -> {
                     if (response.isError) {
-                        Apphelper.toast("网络错误", type = XMToastType.error)
+                        Apphelper.toast("网络错误", type = CXToastType.error)
                     } else if (response.isFailure) {
                         Apphelper.toast(
                             msg = response.message.ifEmpty { "未知错误" },
-                            type = XMToastType.error
+                            type = CXToastType.error
                         )
                     }
                 }

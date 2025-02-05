@@ -79,7 +79,7 @@ class MainActivity : BaseActivity() {
         }
 
         // 普通弹框
-//        XMNormalAlert(Apphelper.normalAlert)
+//        CXNormalAlert(Apphelper.normalAlert)
 
         // 挂载视图
         // 权限弹框用过

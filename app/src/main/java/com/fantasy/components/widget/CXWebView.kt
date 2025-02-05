@@ -41,7 +41,7 @@ class CXWebView : BaseScreen() {
                 CXNormalNavigationBar(
                     title = title.ifEmpty { state.pageTitle },
 //                    leftView = {
-//                        XMIcon(R.drawable.system_xmark, size = 16) {
+//                        Icon(id =R.drawable.system_xmark, size = 16) {
 //                            Apphelper.pop(RouterAnimate.vertical)
 //                        }
 //                    }

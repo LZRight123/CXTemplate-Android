@@ -107,7 +107,7 @@ fun Long.toLocalDate(): LocalDate? {
 
 fun LocalDate.cxDateString(
     defaultValue: (LocalDate) -> String = {
-        it.toStringFormat(xmDateFormatter)
+        it.toStringFormat(cxDateFormatter)
     }
 ): String {
     val daysDifference = ChronoUnit.DAYS.between(this, LocalDate.now())

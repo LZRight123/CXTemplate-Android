@@ -3,8 +3,6 @@ package com.fantasy.cxtemplate.model
 import android.os.Parcelable
 import androidx.annotation.Keep
 import com.fantasy.components.extension.toLocalDateTime
-import com.fantasy.components.extension.toStringFormat
-import com.fantasy.components.extension.xmDateFormatter8
 import com.fantasy.cxtemplate.AppConfig
 import com.fantasy.cxtemplate.manager.userManager
 import kotlinx.parcelize.Parcelize
@@ -40,7 +38,6 @@ data class UserInfo(
     val pushAlias get() = "${AppConfig.evn.name}${id}"
 
     val isme get() = userManager.userInfo.id == id
-    val addCommunityText get() = "${created_time?.toStringFormat(xmDateFormatter8) ?: ""} " + "加入社区"
     companion object {
         val mock = UserInfo(
             id = UUID.randomUUID().toString(),

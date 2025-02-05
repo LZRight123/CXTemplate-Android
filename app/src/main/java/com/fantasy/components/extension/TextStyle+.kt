@@ -9,8 +9,6 @@ import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.sp
 import com.fantasy.components.theme.CXColor
 
-//val TextStyle.bold get() = copy(fontWeight = XMFontWeight.bold)
-
 fun TextStyle.color(color: Color) = copy(color = color)
 fun TextStyle.size(size: Int) = copy(fontSize = size.sp)
 val TextStyle.alignCenter get() = copy(textAlign = TextAlign.Center)

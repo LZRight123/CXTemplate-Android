@@ -29,7 +29,7 @@ if (index >= vm.items.size - 1 && vm.canLoad) {
 vm.loadNextItems()
 }
 }
-item { XMRefreshFooter(vm = vm) }
+item { CXRefreshFooter(vm = vm) }
 }
 }
  */

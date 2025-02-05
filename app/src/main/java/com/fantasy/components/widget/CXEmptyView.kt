@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -21,6 +22,8 @@ import com.fantasy.components.extension.f2c
 import com.fantasy.components.extension.randomString
 import com.fantasy.components.theme.CXFont
 import com.fantasy.components.tools.screenHeight
+import me.nikhilchaudhari.usenetworkstate.NetworkState
+import me.nikhilchaudhari.usenetworkstate.useNetworkState
 
 /**
  * 暂位图
@@ -71,10 +74,10 @@ fun CXEmptyView(
                 if (subline.isNotEmpty()) {
                     Text(text = subline, style = CXFont.f3.v1.f2c)
                 }
-//                val networkState by useNetworkState()
-//                if (networkState == NetworkState.Offline) {
-//                    Text(text = "无网络连接，稍后重试", style = XMFont.f3.v1.f2c)
-//                }
+                val networkState by useNetworkState()
+                if (networkState == NetworkState.Offline) {
+                    Text(text = "无网络连接，稍后重试", style = CXFont.f3.v1.f2c)
+                }
             }
             bottomView()
         }

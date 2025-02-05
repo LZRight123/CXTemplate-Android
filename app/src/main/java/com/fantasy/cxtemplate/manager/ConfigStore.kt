@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fantasy.cxtemplate.model.XMAPPConfig
+import com.fantasy.cxtemplate.model.APPConfig
 import kotlinx.coroutines.launch
 
 /**
@@ -22,12 +22,11 @@ class ConfigStore private constructor() : ViewModel() {
         }
     }
 
-    var appConfig by mutableStateOf(XMAPPConfig())
+    var appConfig by mutableStateOf(APPConfig())
         private set
 
-    suspend fun fetchAppConfigIfNeed(forces: Boolean = false): XMAPPConfig {
+    suspend fun fetchAppConfigIfNeed(forces: Boolean = false): APPConfig {
         if (appConfig.oss_endpoint.isEmpty() || forces) {
-//            appConfig = Networking.create<PublicAPI>().config().data ?: XMAPPConfig()
         }
         return appConfig
     }

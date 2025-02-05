@@ -9,8 +9,8 @@ import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideOrientation
 import com.fantasy.components.base.BaseScreen
 import com.fantasy.components.widget.ImageViewerViewModel
-import com.fantasy.components.widget.XMInfoBarMessage
-import com.fantasy.components.widget.XMToastType
+import com.fantasy.components.widget.CXInfoBarMessage
+import com.fantasy.components.widget.CXToastType
 import dev.chrisbanes.haze.HazeState
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
@@ -53,7 +53,7 @@ object Apphelper {
 
     var animate by mutableStateOf(RouterAnimate.horizontal)
         private set
-    var toast by mutableStateOf<XMInfoBarMessage?>(null)
+    var toast by mutableStateOf<CXInfoBarMessage?>(null)
         private set
 
     // 全局的 loading 实在没有办法才展示
@@ -139,14 +139,14 @@ object Apphelper {
     }
 
 
-    fun toast(msg: String?, type: XMToastType = XMToastType.info) {
+    fun toast(msg: String?, type: CXToastType = CXToastType.info) {
         if (!msg.isNullOrEmpty()) {
             MainScope().launch {
                 if (toast != null) {
                     toastHidden()
                 }
                 delay(50)
-                toast = XMInfoBarMessage(text = msg, type = type)
+                toast = CXInfoBarMessage(text = msg, type = type)
             }
         }
     }

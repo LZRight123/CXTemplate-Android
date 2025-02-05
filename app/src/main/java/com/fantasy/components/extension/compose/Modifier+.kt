@@ -163,7 +163,6 @@ fun Modifier.addCardBack(
         )
         .clip(RoundedCornerShape(cornerRadius))
         .background(backgroundColor)
-//        .background(brush = XMBrush.brush1)
 }
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")

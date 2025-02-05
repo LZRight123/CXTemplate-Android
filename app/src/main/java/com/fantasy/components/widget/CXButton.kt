@@ -76,7 +76,6 @@ fun CXButton(
 
     CompositionLocalProvider(
         LocalContentColor provides if (enabled) contentColor else disabledContentColor,
-//        LocalRippleTheme provides XMRippleTheme,
     ) {
         Box(
             contentAlignment = Alignment.Center,

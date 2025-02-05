@@ -19,7 +19,7 @@ import com.fantasy.components.extension.compose.addCardBack
 import com.fantasy.components.extension.compose.fantasyClick
 import com.fantasy.components.extension.randomString
 import com.fantasy.components.theme.CXFont
-import com.fantasy.components.widget.XMToastType
+import com.fantasy.components.widget.CXToastType
 import com.fantasy.components.widget.PreviewScreen
 
 object PermissionManager {
@@ -61,7 +61,7 @@ object PermissionManager {
                 if (isAllGranted.not()) {
                     Apphelper.toast(
                         alertTip,
-                        XMToastType.error
+                        CXToastType.error
                     )
 //                    PermissionUtils.launchAppDetailsSettings()
                 }
@@ -102,7 +102,7 @@ object PermissionManager {
                 if (isAllGranted.not()) {
                     Apphelper.toast(
                         alertTip,
-                        XMToastType.error
+                        CXToastType.error
                     )
 //                    PermissionUtils.launchAppDetailsSettings()
                 }
@@ -137,7 +137,7 @@ object PermissionManager {
                 if (isAllGranted.not()) {
                     Apphelper.toast(
                         alertTip,
-                        XMToastType.error
+                        CXToastType.error
                     )
 //                    PermissionUtils.launchAppDetailsSettings()
                 }

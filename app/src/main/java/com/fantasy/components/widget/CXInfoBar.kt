@@ -37,7 +37,7 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun CXInfoBar(
-    message: XMInfoBarMessage?,
+    message: CXInfoBarMessage?,
     onDismiss: () -> Unit
 ) {
     if (message != null) {
@@ -56,7 +56,7 @@ fun CXInfoBar(
                     delay(2_500)
 //                    ndLog("job over")
 
-                    if (message.type != XMToastType.loading) {
+                    if (message.type != CXToastType.loading) {
                         isShowAnimation = false
                     }
                 }
@@ -89,7 +89,7 @@ fun CXInfoBar(
                         .padding(horizontal = 16.dp, vertical = 12.dp)
                         .widthIn(min = (screenWith * 0.4).dp, max = (screenWith * 0.618).dp)
                 ) {
-                    if (message.type == XMToastType.loading) {
+                    if (message.type == CXToastType.loading) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(13.dp),
                             color = CXColor.f1.copy(0.8f),
@@ -111,7 +111,7 @@ fun CXInfoBar(
     }
 }
 
-enum class XMToastType {
+enum class CXToastType {
     success,
     info,
     warning,
@@ -130,9 +130,9 @@ enum class XMToastType {
         }
 }
 
-data class XMInfoBarMessage(
+data class CXInfoBarMessage(
     val text: String = "",
-    val type: XMToastType = XMToastType.info,
+    val type: CXToastType = CXToastType.info,
 //    val id: String = UUID.randomUUID().toString(),
 )
 
@@ -141,11 +141,7 @@ data class XMInfoBarMessage(
 @Composable
 private fun Preview() {
     PreviewScreen {}
-    CXInfoBar(message = XMInfoBarMessage("网络异常，请检查网络设置", XMToastType.error)) {
+    CXInfoBar(message = CXInfoBarMessage("网络异常，请检查网络设置", CXToastType.error)) {
 
     }
-
-//    XMInfoBar(message = XMInfoBarMessage("正在加载", XMToastType.loading)) {
-//
-//    }
 }

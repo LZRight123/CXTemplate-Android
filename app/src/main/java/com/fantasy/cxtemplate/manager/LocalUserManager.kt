@@ -178,7 +178,7 @@ class LocalUserManager private constructor() : ViewModel() {
 //        if (uiimage != null) {
 //            val res = AliyunOSSManager.shared.uploadBatch(
 //                items = listOf(uiimage.compress()),
-//                type = XMImageType.avatar,
+//
 //            ).firstOrNull()
 //            if (res.isNullOrEmpty()) {
 //                return false
