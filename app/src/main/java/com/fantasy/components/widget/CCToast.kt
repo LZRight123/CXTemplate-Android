@@ -13,7 +13,7 @@ import com.fantasy.components.tools.localDelay
 import kotlinx.coroutines.*
 
 @Composable
-fun CXToast(
+fun CCToast(
     visible: Boolean,
     onVisibleChange: (Boolean) -> Unit,
     toastDuration: Long = 3000,
@@ -49,7 +49,7 @@ fun CXToast(
         onVisibleChange(false)
     }
 
-    CXFullscreenPopup(onSystemBack = {
+    CCFullscreenPopup(onSystemBack = {
         onVisibleChange(false)
     }) {
         AnimatedVisibility(
@@ -70,7 +70,7 @@ fun CXToast(
 
 
 @Composable
-fun <T> CXToast(
+fun <T> CCToast(
     data: T?,
     onDataChange: (T?) -> Unit,
     toastDuration: Long = 3000,
@@ -106,7 +106,7 @@ fun <T> CXToast(
 
         }
 
-        CXFullscreenPopup(onSystemBack = {
+        CCFullscreenPopup(onSystemBack = {
             onDataChange(null)
         }) {
             AnimatedVisibility(
@@ -149,9 +149,9 @@ fun <T> CXToast(
 @Preview
 @Composable
 private fun Preview() {
-    CXScaffold {
+    CCScaffold {
         Text("!23")
-        CXToast(data = "Hello World", onDataChange = {}) {
+        CCToast(data = "Hello World", onDataChange = {}) {
 
         }
     }

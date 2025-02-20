@@ -16,7 +16,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
 import com.fantasy.components.extension.compose.fantasyClick
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.theme.sheetBackgroundColor
 import com.fantasy.components.tools.hideKeyboard
 import eu.wewox.modalsheet.ExperimentalSheetApi
@@ -27,12 +27,12 @@ import eu.wewox.modalsheet.ModalSheet
  */
 @OptIn(ExperimentalSheetApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun CXModalSheet(
+fun CCModalSheet(
     visible: Boolean,
     onVisibleChange: (Boolean) -> Unit,
     cancelable: Boolean = true,
     onSystemBack: (() -> Unit)? = { onVisibleChange(false) },
-    scrimColor: Color = CXColor.sheetBackgroundColor,
+    scrimColor: Color = CCColor.sheetBackgroundColor,
     content: @Composable BoxScope.() -> Unit,
 ) {
     if (LocalInspectionMode.current && visible) {
@@ -68,12 +68,12 @@ fun CXModalSheet(
 
 @OptIn(ExperimentalSheetApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun <T> CXModalSheet(
+fun <T> CCModalSheet(
     data: T?,
     onDataChange: (T?) -> Unit,
     cancelable: Boolean = true,
     onSystemBack: (() -> Unit)? = { onDataChange(null) },
-    scrimColor: Color = CXColor.sheetBackgroundColor,
+    scrimColor: Color = CCColor.sheetBackgroundColor,
     content: @Composable BoxScope.(T) -> Unit,
 ) {
     if (LocalInspectionMode.current && data != null) {
@@ -119,12 +119,12 @@ fun <T> CXModalSheet(
 @Composable
 private fun Preview() {
     PreviewScreen {
-        CXModalSheet(
+        CCModalSheet(
             visible = true,
             onVisibleChange = {}
         ) {
             Box(modifier = Modifier
-                .background(CXColor.random)
+                .background(CCColor.random)
                 .fillMaxWidth()
                 .height(300.dp))
         }

@@ -23,18 +23,18 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.PopupProperties
 import com.fantasy.components.extension.color
 import com.fantasy.components.extension.compose.Icon
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 import com.fantasy.components.tools.dropdownMenuDefaultWidth
 
 @Composable
-fun CXMenuRow(
+fun CCMenuRow(
     title: String,
     @DrawableRes icon: Int? = null,
-    tint: Color = CXColor.f1,
+    tint: Color = CCColor.f1,
     onClick: () -> Unit,
 ) {
-    CXButton(onClick = onClick) {
+    CCButton(onClick = onClick) {
         Row(
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.spacedBy(4.dp),
@@ -42,7 +42,7 @@ fun CXMenuRow(
                 .padding(horizontal = 16.dp)
                 .fillMaxWidth()
         ) {
-            Text(text = title, style = CXFont.f1.v1.color(tint))
+            Text(text = title, style = CCFont.f1.v1.color(tint))
             Spacer(modifier = Modifier.weight(1f))
             icon?.let {
                 Icon(id = icon, tint = tint)
@@ -52,12 +52,12 @@ fun CXMenuRow(
 }
 
 @Composable
-private fun CXMenuContentWrap(
+private fun CCMenuContentWrap(
     content: @Composable ColumnScope.() -> Unit
 ) {
     Column(
         modifier = Modifier
-            .background(CXColor.b1)
+            .background(CCColor.b1)
             .padding(vertical = 4.dp)
             .width(dropdownMenuDefaultWidth),
         verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -67,7 +67,7 @@ private fun CXMenuContentWrap(
 }
 
 @Composable
-fun CXDropdownMenu(
+fun CCDropdownMenu(
     expanded: Boolean,
     onDismissRequest: () -> Unit,
     offset: DpOffset = DpOffset(0.dp, 0.dp),
@@ -76,13 +76,13 @@ fun CXDropdownMenu(
     DropdownMenu(
         expanded = expanded,
         onDismissRequest = onDismissRequest,
-        modifier = Modifier.background(CXColor.b1),
+        modifier = Modifier.background(CCColor.b1),
         offset = offset,
         properties = PopupProperties(
             focusable = true,
         )
     ) {
-        CXMenuContentWrap {
+        CCMenuContentWrap {
             content()
         }
     }
@@ -92,24 +92,24 @@ fun CXDropdownMenu(
 @Preview
 private fun Preview() {
     PreviewScreen {
-        CXMenuContentWrap {
-            CXMenuRow(
+        CCMenuContentWrap {
+            CCMenuRow(
                 title = "删除本餐",
-                tint = CXColor.error
+                tint = CCColor.error
             ) {}
         }
 
         Spacer(modifier = Modifier.height(100.dp))
 
-        CXMenuContentWrap {
-            CXMenuRow(
+        CCMenuContentWrap {
+            CCMenuRow(
                 title = "这是",
-                tint = CXColor.f1
+                tint = CCColor.f1
             ) {}
-            CXHLine()
-            CXMenuRow(
+            CCHLine()
+            CCMenuRow(
                 title = "删除",
-                tint = CXColor.error
+                tint = CCColor.error
             ) {}
         }
 

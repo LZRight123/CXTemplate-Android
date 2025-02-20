@@ -9,16 +9,16 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 
 
 // tint: Color = LocalContentColor.current.copy(alpha = LocalContentAlpha.current)
-// tint 可以从 Theme 里面配置,见 CXTheme.kt
+// tint 可以从 Theme 里面配置,见 CCTheme.kt
 @Composable
 fun Icon(
     @DrawableRes id: Int,
     size: Int,
-    tint: Color = CXColor.f1
+    tint: Color = CCColor.f1
 ) {
     Icon(
         id = id,
@@ -31,7 +31,7 @@ fun Icon(
 fun Icon(
     @DrawableRes id: Int,
     modifier: Modifier = Modifier.size(20.dp),
-    tint: Color = CXColor.f1
+    tint: Color = CCColor.f1
 ) {
     Icon(
         painter = painterResource(id = id),
@@ -45,7 +45,7 @@ fun Icon(
 fun Icon(
     imageVector: ImageVector,
     modifier: Modifier = Modifier,
-    tint: Color = CXColor.f1
+    tint: Color = CCColor.f1
 ) {
     Icon(
         imageVector = imageVector,

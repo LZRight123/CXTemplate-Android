@@ -19,11 +19,11 @@ class PerformanceManager private constructor() {
 
     fun applicationLaunchEnd() {
         applicationLaunchEnd = System.currentTimeMillis()
-        cxlog("性能监测：application 加载时长 ${applicationLaunchEnd - applicationLaunchStart}ms")
+        cclog("性能监测：application 加载时长 ${applicationLaunchEnd - applicationLaunchStart}ms")
     }
 
     fun welcomeActivityEnter() {
         welcomeActivityEnter = System.currentTimeMillis()
-        cxlog("性能监测：从 application 加载到启动 WelcomeActivity 时长 ${welcomeActivityEnter - applicationLaunchStart}ms")
+        cclog("性能监测：从 application 加载到启动 WelcomeActivity 时长 ${welcomeActivityEnter - applicationLaunchStart}ms")
     }
 }

@@ -5,8 +5,8 @@ import android.annotation.SuppressLint
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.fantasy.components.tools.localDelay
-import com.fantasy.components.tools.cxlog
-import com.fantasy.components.tools.CXKV
+import com.fantasy.components.tools.cclog
+import com.fantasy.components.tools.CCKV
 import com.fantasy.components.tools.getContext
 import com.fantasy.components.tools.isDebugBuilder
 import kotlinx.coroutines.*
@@ -27,12 +27,12 @@ class ThirdSDKManager : ViewModel() {
 
     fun initSDK() {
         initSDKWithOutAuthorize()
-        if (CXKV.shared.decodeBool(kIsAgreePrivacy)) {
+        if (CCKV.shared.decodeBool(kIsAgreePrivacy)) {
             initSDKWithAuthorize()
         }
     }
     private fun initSDKWithOutAuthorize() {
-        cxlog("ThirdSDKManager initSDKWithOutAuthorize")
+        cclog("ThirdSDKManager initSDKWithOutAuthorize")
 //        PushManager.getInstance().preInit(context)
 //        UMConfigure.preInit(context, AppConfig.uMAppId, "Android")
         viewModelScope.launch(Dispatchers.IO) {
@@ -43,7 +43,7 @@ class ThirdSDKManager : ViewModel() {
     fun initSDKWithAuthorize() {
         // 需要用户授权的
         viewModelScope.launch(Dispatchers.IO) {
-            cxlog("ThirdSDKManager initSDKWithAuthorize")
+            cclog("ThirdSDKManager initSDKWithAuthorize")
 
             initBugly()
             registerGeTui()
@@ -152,13 +152,13 @@ class ThirdSDKManager : ViewModel() {
 
         viewModelScope.launch {
             localDelay( 1000)
-            cxlog("个推推送 准备绑定别名: $alias")
+            cclog("个推推送 准备绑定别名: $alias")
 //            PushManager.getInstance().bindAlias(context, alias)
         }
     }
 
     fun unBindAlias(alias: String) {
-        cxlog("个推推送 准备解绑别名 $alias")
+        cclog("个推推送 准备解绑别名 $alias")
 //        PushManager.getInstance().unBindAlias(context, alias, true)
     }
 

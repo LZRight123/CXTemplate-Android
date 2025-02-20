@@ -2,12 +2,12 @@ package com.fantasy.components.tools
 
 import android.util.Log
 
-fun cxlog(msg: Any?) {
+fun cclog(msg: Any?) {
     if (isDebugBuilder) {
         if (msg is String) {
-            Log.i("cxlog: ", msg)
+            Log.i("cclog: ", msg)
         } else {
-            print("cxlog: ")
+            print("cclog: ")
             println(msg)
         }
     }

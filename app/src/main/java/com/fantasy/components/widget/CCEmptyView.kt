@@ -17,10 +17,10 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.animations.cxAlphaIn
+import com.fantasy.components.animations.ccAlphaIn
 import com.fantasy.components.extension.f2c
 import com.fantasy.components.extension.randomString
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCFont
 import com.fantasy.components.tools.screenHeight
 import me.nikhilchaudhari.usenetworkstate.NetworkState
 import me.nikhilchaudhari.usenetworkstate.useNetworkState
@@ -29,7 +29,7 @@ import me.nikhilchaudhari.usenetworkstate.useNetworkState
  * 暂位图
  */
 @Composable
-fun CXEmptyView(
+fun CCEmptyView(
     @DrawableRes image: Int? = null,
     text: String = "暂时没有内容",
     subline: String = "",
@@ -54,7 +54,7 @@ fun CXEmptyView(
                 .graphicsLayer {
                     translationY = ty.value
                 }
-                .cxAlphaIn(),
+                .ccAlphaIn(),
         ) {
             if (image != null) {
                 Image(
@@ -69,14 +69,14 @@ fun CXEmptyView(
                 verticalArrangement = Arrangement.spacedBy(8.dp),
             ) {
                 if (text.isNotEmpty()) {
-                    Text(text = text, style = CXFont.f1.v1)
+                    Text(text = text, style = CCFont.f1.v1)
                 }
                 if (subline.isNotEmpty()) {
-                    Text(text = subline, style = CXFont.f3.v1.f2c)
+                    Text(text = subline, style = CCFont.f3.v1.f2c)
                 }
                 val networkState by useNetworkState()
                 if (networkState == NetworkState.Offline) {
-                    Text(text = "无网络连接，稍后重试", style = CXFont.f3.v1.f2c)
+                    Text(text = "无网络连接，稍后重试", style = CCFont.f3.v1.f2c)
                 }
             }
             bottomView()
@@ -91,12 +91,12 @@ fun CXEmptyView(
 @Composable
 private fun Preview() {
     PreviewScreen {
-        CXEmptyView(
+        CCEmptyView(
             text = randomString(4),
             subline = randomString(10),
         ) {
             Spacer(modifier = Modifier.height(24.dp))
-            CXButton(
+            CCButton(
                 onClick = {}
             ) {
                 Text(text = "重试")

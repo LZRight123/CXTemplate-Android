@@ -19,11 +19,11 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import kotlinx.coroutines.delay
 
 @Composable
-fun CXThreeBounceAnimation(
+fun CCThreeBounceAnimation(
     dotSize: Int = 14
 ) {
     val dots = listOf(
@@ -55,7 +55,7 @@ fun CXThreeBounceAnimation(
                     .size(dotSize.dp)
                     .scale(dy)
                     .alpha(dy)
-                    .background(color = CXColor.f3, shape = CircleShape)
+                    .background(color = CCColor.f3, shape = CircleShape)
             )
         }
     }
@@ -65,6 +65,6 @@ fun CXThreeBounceAnimation(
 @Composable
 private fun Preview() {
     PreviewScreen {
-        CXThreeBounceAnimation()
+        CCThreeBounceAnimation()
     }
 }

@@ -12,14 +12,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.tooling.preview.Preview
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.inPreview
 import org.koin.android.ext.koin.androidContext
 import org.koin.compose.KoinApplication
 
 @Composable
 fun PreviewScreen(
-    backgroundColor: Color = CXColor.b1,
+    backgroundColor: Color = CCColor.b1,
     modifier: Modifier = Modifier.background(backgroundColor),
     verticalArrangement: Int = 0,
     horizontalAlignment: Alignment.Horizontal = Alignment.CenterHorizontally,

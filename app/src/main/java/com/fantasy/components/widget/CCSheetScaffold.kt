@@ -19,13 +19,13 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.graphics.Shape
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.navBarHeight
 
 @Composable
-fun CXSheetScaffold(
+fun CCSheetScaffold(
     dragHandler: @Composable () -> Unit = {
-        CXCapsuleIndicator(modifier = Modifier.padding(bottom = 8.dp))
+        CCCapsuleIndicator(modifier = Modifier.padding(bottom = 8.dp))
     },
     shape: Shape = RoundedCornerShape(topStart = 18.dp, topEnd = 18.dp),
     showLoading: Boolean = false,
@@ -49,7 +49,7 @@ fun CXSheetScaffold(
 
 
             Box(modifier = Modifier.matchParentSize()) {
-                CXLoading(isShow = showLoading)
+                CCLoading(isShow = showLoading)
             }
         }
     }
@@ -61,7 +61,7 @@ private fun Preview() {
     PreviewScreen() {
         Spacer(modifier = Modifier.weight(1f))
 
-        CXSheetScaffold {
+        CCSheetScaffold {
             Box(modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp))

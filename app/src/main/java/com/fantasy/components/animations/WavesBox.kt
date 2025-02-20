@@ -17,12 +17,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.tooling.preview.Preview
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import io.github.sagar_viradiya.rememberKoreography
 
 @Composable
 fun WavesBox(
-    waveColor: Color = CXColor.f1.copy(0.6f),
+    waveColor: Color = CCColor.f1.copy(0.6f),
     shape: Shape = CircleShape,
     content: @Composable () -> Unit
 ) {

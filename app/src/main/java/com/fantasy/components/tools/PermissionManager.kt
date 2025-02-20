@@ -18,8 +18,8 @@ import com.blankj.utilcode.util.RomUtils
 import com.fantasy.components.extension.compose.addCardBack
 import com.fantasy.components.extension.compose.fantasyClick
 import com.fantasy.components.extension.randomString
-import com.fantasy.components.theme.CXFont
-import com.fantasy.components.widget.CXToastType
+import com.fantasy.components.theme.CCFont
+import com.fantasy.components.widget.CCToastType
 import com.fantasy.components.widget.PreviewScreen
 
 object PermissionManager {
@@ -40,7 +40,7 @@ object PermissionManager {
         PermissionUtils.permission(
             Manifest.permission.CAMERA,
         ).explain { activity, denied, shouldRequest ->
-            if (CXKV.shared.decodeBool(localCaptureKey, false).not()) {
+            if (CCKV.shared.decodeBool(localCaptureKey, false).not()) {
                 Apphelper.attachShow {
                     PermissionTipPopup(
                         title = cameraTitle,
@@ -52,16 +52,16 @@ object PermissionManager {
         }
             .callback { isAllGranted, granted, deniedForever, denied ->
                 if (RomUtils.isXiaomi().not()) {
-                    CXKV.shared.encode(localCaptureKey, true)
+                    CCKV.shared.encode(localCaptureKey, true)
                 }
                 Apphelper.attachHidden()
-                cxlog("isAllGranted ${isAllGranted}, denied is ${denied} ")
+                cclog("isAllGranted ${isAllGranted}, denied is ${denied} ")
                 completion(isAllGranted)
                 // 小米市场不能往这跳
                 if (isAllGranted.not()) {
                     Apphelper.toast(
                         alertTip,
-                        CXToastType.error
+                        CCToastType.error
                     )
 //                    PermissionUtils.launchAppDetailsSettings()
                 }
@@ -81,7 +81,7 @@ object PermissionManager {
                 )
         }
         utils.explain { _, _, shouldRequest ->
-            if (CXKV.shared.decodeBool(localPhotoAlbumKey, false).not()) {
+            if (CCKV.shared.decodeBool(localPhotoAlbumKey, false).not()) {
                 Apphelper.attachShow {
                     PermissionTipPopup(
                         title = albumTitle,
@@ -93,16 +93,16 @@ object PermissionManager {
         }
             .callback { isAllGranted, granted, deniedForever, denied ->
                 if (RomUtils.isXiaomi().not()) {
-                    CXKV.shared.encode(localPhotoAlbumKey, true)
+                    CCKV.shared.encode(localPhotoAlbumKey, true)
                 }
                 Apphelper.attachHidden()
-                cxlog("isAllGranted ${isAllGranted}, denied is ${denied} ")
+                cclog("isAllGranted ${isAllGranted}, denied is ${denied} ")
                 completion(isAllGranted)
                 // 小米市场不能往这跳
                 if (isAllGranted.not()) {
                     Apphelper.toast(
                         alertTip,
-                        CXToastType.error
+                        CCToastType.error
                     )
 //                    PermissionUtils.launchAppDetailsSettings()
                 }
@@ -116,7 +116,7 @@ object PermissionManager {
         PermissionUtils.permission(
             Manifest.permission.CAMERA,
         ).explain { activity, denied, shouldRequest ->
-            if (CXKV.shared.decodeBool(localCaptureKey, false).not()) {
+            if (CCKV.shared.decodeBool(localCaptureKey, false).not()) {
                 Apphelper.attachShow {
                     PermissionTipPopup(
                         title = "需要访问剪切板权限",
@@ -128,16 +128,16 @@ object PermissionManager {
         }
             .callback { isAllGranted, granted, deniedForever, denied ->
                 if (RomUtils.isXiaomi().not()) {
-                    CXKV.shared.encode(localCaptureKey, true)
+                    CCKV.shared.encode(localCaptureKey, true)
                 }
                 Apphelper.attachHidden()
-                cxlog("isAllGranted ${isAllGranted}, denied is ${denied} ")
+                cclog("isAllGranted ${isAllGranted}, denied is ${denied} ")
                 completion(isAllGranted)
                 // 小米市场不能往这跳
                 if (isAllGranted.not()) {
                     Apphelper.toast(
                         alertTip,
-                        CXToastType.error
+                        CCToastType.error
                     )
 //                    PermissionUtils.launchAppDetailsSettings()
                 }
@@ -164,8 +164,8 @@ fun PermissionTipPopup(title: String, content: String) {
             .padding(16.dp)
             .fillMaxWidth()
     ) {
-        Text(text = title, style = CXFont.f1b.v2)
-        Text(text = content, style = CXFont.f2.v2)
+        Text(text = title, style = CCFont.f1b.v2)
+        Text(text = content, style = CCFont.f2.v2)
     }
 }
 

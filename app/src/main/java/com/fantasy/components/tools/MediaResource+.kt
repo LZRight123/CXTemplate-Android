@@ -9,7 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.blankj.utilcode.util.FileUtils
 import com.fantasy.components.extension.randomString
-import com.fantasy.components.widget.CXCoilImage
+import com.fantasy.components.widget.CCCoilImage
 import github.leavesczy.matisse.CaptureStrategy
 import github.leavesczy.matisse.ImageEngine
 import github.leavesczy.matisse.Matisse
@@ -29,7 +29,7 @@ import java.util.UUID
 class MatisseColiImageEngine : ImageEngine {
     @Composable
     override fun Image(mediaResource: MediaResource) {
-        CXCoilImage(
+        CCCoilImage(
             model = { mediaResource.uri },
             modifier = Modifier.fillMaxSize()
         )
@@ -37,7 +37,7 @@ class MatisseColiImageEngine : ImageEngine {
 
     @Composable
     override fun Thumbnail(mediaResource: MediaResource) {
-        CXCoilImage(
+        CCCoilImage(
             model = { mediaResource.uri },
             modifier = Modifier.fillMaxSize()
         )
@@ -49,14 +49,14 @@ suspend fun Uri.compress(
     config: Compression.() -> Unit = { default() }
 ): File {
     val context = getContext
-    val tmpFile = CXFileUtil.from(context, this)
+    val tmpFile = CCFileUtil.from(context, this)
     val compressFile = Compressor.compress(
         context,
         tmpFile
     ) {
         config()
     }
-    cxlog(
+    cclog(
         "图片压缩 原始图片大小： ${FileUtils.getSize(tmpFile)} 压缩后图片大小： ${
             FileUtils.getSize(
                 compressFile
@@ -122,15 +122,15 @@ fun ManagedActivityResultLauncher<Matisse, List<MediaResource>?>.openAlbum(
 ) {
     PermissionManager.checkPhotoAlbum {
         if (it) {
-            launch(cxMatisse(maxSelectable = maxSelectable))
+            launch(ccMatisse(maxSelectable = maxSelectable))
         }
     }
 }
 
 fun ManagedActivityResultLauncher<MatisseCapture, List<MediaResource>?>.openCamera() =
-    launch(cxMatisseCapture())
+    launch(ccMatisseCapture())
 
-private fun cxMatisse(
+private fun ccMatisse(
     maxSelectable: Int = 1,
     singleMediaType: Boolean = true,
     captureStrategy: CaptureStrategy? = null,
@@ -142,7 +142,7 @@ private fun cxMatisse(
     captureStrategy = captureStrategy,
 )
 
-private fun cxMatisseCapture(
+private fun ccMatisseCapture(
     captureStrategy: CaptureStrategy = SmartCaptureStrategy("${appName}希望访问您的相册和相机用来选择图片来更改您的头像及记录您的日常"),
 ) = MatisseCapture(
     captureStrategy = captureStrategy,

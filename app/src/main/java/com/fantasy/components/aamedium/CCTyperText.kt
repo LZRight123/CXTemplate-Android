@@ -20,18 +20,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.fantasy.components.extension.color
 import com.fantasy.components.extension.f1c
 import com.fantasy.components.extension.randomString
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 import com.fantasy.components.tools.mada
 import com.fantasy.components.tools.openUrl
-import com.fantasy.components.widget.CXMarkdown
+import com.fantasy.components.widget.CCMarkdown
 import com.fantasy.components.widget.PreviewScreen
 import kotlinx.coroutines.delay
 
 @Composable
-fun CXTyperText(
+fun CCTyperText(
     text: String,
-    style: TextStyle = CXFont.f1.v1.f1c,
+    style: TextStyle = CCFont.f1.v1.f1c,
     modifier: Modifier = Modifier,
     charDuration: Int = 30, // 每个字符的间隔时间 如果想设置一个整体的时间 直接修改 spec
     madaStep: Long = 210, // mada 的最小间隔时间
@@ -64,10 +64,10 @@ fun CXTyperText(
 
     val guanBiao = if (index.value >= textToAnimate.length - 1) "" else " ●"
     if (isMarkdown) {
-        CXMarkdown(
+        CCMarkdown(
             content = textToAnimate.substring(0, index.value) + guanBiao,
             style = style,
-            linkStyle = style.color(CXColor.f1),
+            linkStyle = style.color(CCColor.f1),
             modifier = modifier
         ) {
             openUrl(it)
@@ -88,7 +88,7 @@ fun CXTyperText(
 private fun _preview() {
     PreviewScreen {
         Text(text = "???")
-        CXTyperText(text = "Hello, World!")
-        CXTyperText(text = randomString(100))
+        CCTyperText(text = "Hello, World!")
+        CCTyperText(text = randomString(100))
     }
 }

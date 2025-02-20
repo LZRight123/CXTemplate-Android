@@ -21,11 +21,11 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalInspectionMode
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.theme.sheetBackgroundColor
 
 @Composable
-fun <T> CXModalSystemSheet(
+fun <T> CCModalSystemSheet(
     data: T?,
     onDataChange: (T?) -> Unit,
     cancelable: Boolean = true,
@@ -37,7 +37,7 @@ fun <T> CXModalSystemSheet(
         onDispose {}
     }
 
-    CXModalSystemSheet(
+    CCModalSystemSheet(
         visible = data != null,
         onVisibleChange = { visible ->
             if (visible) {
@@ -56,7 +56,7 @@ fun <T> CXModalSystemSheet(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CXModalSystemSheet(
+fun CCModalSystemSheet(
     visible: Boolean,
     onVisibleChange: (Boolean) -> Unit,
     cancelable: Boolean = true,
@@ -114,8 +114,8 @@ fun CXModalSystemSheet(
         sheetState = sheetState,
 //        shape = RectangleShape,
         containerColor = Color.Transparent,
-        contentColor = CXColor.f1,
-        scrimColor = CXColor.sheetBackgroundColor,
+        contentColor = CCColor.f1,
+        scrimColor = CCColor.sheetBackgroundColor,
         contentWindowInsets = {
             WindowInsets(0, 0, 0, 0)
         },
@@ -145,7 +145,7 @@ fun CXModalSystemSheet(
 @Composable
 private fun Preview() {
     PreviewScreen {
-        CXModalSystemSheet(
+        CCModalSystemSheet(
             visible = true,
             onVisibleChange = {},
         ) {

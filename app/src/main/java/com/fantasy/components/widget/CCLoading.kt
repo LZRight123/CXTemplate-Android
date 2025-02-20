@@ -18,7 +18,7 @@ import com.fantasy.cxtemplate.R
  * blog: https://juejin.cn/post/7001326105953042463
  */
 @Composable
-fun CXLoading(// Can click outside
+fun CCLoading(// Can click outside
     isShow: Boolean = true,
     resId: Int = R.raw.loading_gray,
     canClickOutside: Boolean = false
@@ -32,7 +32,7 @@ fun CXLoading(// Can click outside
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CXLottieView(
+            CCLottieView(
                 modifier = Modifier.size((screenWith * 0.618).dp),
                 resId = resId,
             )
@@ -44,9 +44,9 @@ fun CXLoading(// Can click outside
 @Composable
 private fun Preview() {
     PreviewScreen {
-        CXLoading()
+        CCLoading()
 
-        CXLoading(resId =  R.raw.loading_gray)
+        CCLoading(resId =  R.raw.loading_gray)
 
     }
 }

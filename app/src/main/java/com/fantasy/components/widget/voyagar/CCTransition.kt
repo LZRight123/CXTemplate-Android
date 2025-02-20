@@ -16,7 +16,7 @@ import cafe.adriel.voyager.transitions.ScreenTransition
  * https://voyager.adriel.cafe/transitions-api/
  */
 @OptIn(ExperimentalVoyagerApi::class)
-class CXFadeTransition : ScreenTransition {
+class CCFadeTransition : ScreenTransition {
     override fun enter(lastEvent: StackEvent): EnterTransition {
         return fadeIn(tween(1500))
     }
@@ -27,7 +27,7 @@ class CXFadeTransition : ScreenTransition {
 }
 
 @OptIn(ExperimentalVoyagerApi::class)
-class CXSlideVertically : ScreenTransition {
+class CCSlideVertically : ScreenTransition {
 
     override fun enter(lastEvent: StackEvent): EnterTransition {
         return slideIn { size ->

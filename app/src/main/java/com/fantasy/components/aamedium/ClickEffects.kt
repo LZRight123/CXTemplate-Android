@@ -20,7 +20,7 @@ import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.widget.PreviewScreen
 import io.github.sagar_viradiya.rememberKoreography
 
@@ -96,14 +96,14 @@ private fun _preview() {
         Box(
             modifier = Modifier
                 .bounceClick(pressedScale = 0.5f)
-                .background(CXColor.random)
+                .background(CCColor.random)
                 .size(100.dp)
         )
 
         Box(
             modifier = Modifier
                 .shakeClickEffect(ofssetX = 60f)
-                .background(CXColor.random)
+                .background(CCColor.random)
                 .size(100.dp)
         )
     }

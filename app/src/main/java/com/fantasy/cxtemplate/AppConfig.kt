@@ -1,6 +1,7 @@
 package com.fantasy.cxtemplate
 
 import com.fantasy.components.tools.isDebugBuilder
+import com.fantasy.cxtemplate.BuildConfig
 
 
 object AppConfig {

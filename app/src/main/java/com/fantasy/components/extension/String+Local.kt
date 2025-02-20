@@ -28,7 +28,7 @@ private val Locale.localType
 
 val currentLocalType get() = currentLocal.localType
 
-val cxDateFormatter
+val ccDateFormatter
     get() = when (currentLocalType) {
         LocalType.en -> "MM/dd/yyyy"
         else -> "yyyy年M月d日"

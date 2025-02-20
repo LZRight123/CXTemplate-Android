@@ -13,11 +13,11 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 
 @Composable
-fun CXCapsuleIndicator(
-    color: Color = CXColor.f3,
+fun CCCapsuleIndicator(
+    color: Color = CCColor.f3,
     modifier: Modifier = Modifier
 ) {
     Box(
@@ -35,7 +35,7 @@ private fun Preview() {
     PreviewScreen {
         Text(text = "haha")
 
-        CXCapsuleIndicator()
+        CCCapsuleIndicator()
     }
 
 }

@@ -11,9 +11,9 @@ import cafe.adriel.voyager.core.lifecycle.ScreenLifecycleOwner
 import cafe.adriel.voyager.core.lifecycle.ScreenLifecycleStore
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.tools.cclog
 import com.fantasy.components.tools.Apphelper
-import com.fantasy.components.widget.CXModalSheet
+import com.fantasy.components.widget.CCModalSheet
 import java.util.UUID
 
 
@@ -25,7 +25,7 @@ class BaseViewModelStoreOwner : ViewModelStoreOwner, ScreenLifecycleOwner {
         get() = selfViewModelStore
 
     override fun onDispose(screen: Screen) {
-        cxlog("Screen要销毁啦: ${screen::class.java.simpleName}")
+        cclog("Screen要销毁啦: ${screen::class.java.simpleName}")
         selfViewModelStore.clear()  // 清理 ViewModelStore，调用 ViewModel 的 onCleared
     }
 }
@@ -59,7 +59,7 @@ abstract class BaseScreen : Screen {
                 LaunchedEffect(Apphelper.navigator?.lastItem) {
                     modal.isCurrent = Apphelper.navigator?.lastItem?.key == key
                 }
-                CXModalSheet(
+                CCModalSheet(
                     data = if (modal.isCurrent) modal.screen else null ,
                     onDataChange = {
                         Apphelper.dismiss(animated = false)

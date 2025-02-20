@@ -16,7 +16,7 @@ import com.fantasy.components.tools.safeAreaTop
 
 
 /**
-CXPullRefreshView(
+CCPullRefreshView(
 refreshing = vm.refreshing,,
 onRefresh = {
 vm.refreshing = true
@@ -29,14 +29,14 @@ if (index >= vm.items.size - 1 && vm.canLoad) {
 vm.loadNextItems()
 }
 }
-item { CXRefreshFooter(vm = vm) }
+item { CCRefreshFooter(vm = vm) }
 }
 }
  */
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun CXPullRefreshView(
+fun CCPullRefreshView(
     refreshing: Boolean,
     onRefresh: () -> Unit,
     refreshingOffset: Dp = safeAreaTop + navBarHeight + 60.dp,
@@ -59,6 +59,6 @@ fun CXPullRefreshView(
     ) {
         content()
 
-        CXLoading(isShow = isLoading)
+        CCLoading(isShow = isLoading)
     }
 }

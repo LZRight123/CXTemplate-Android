@@ -21,7 +21,7 @@ import com.google.accompanist.web.AccompanistWebViewClient
 import com.google.accompanist.web.rememberWebViewNavigator
 import com.google.accompanist.web.rememberWebViewState
 
-class CXWebView : BaseScreen() {
+class CCWebView : BaseScreen() {
     var url: String = ""
     var title: String = ""
 
@@ -36,9 +36,9 @@ class CXWebView : BaseScreen() {
 
         val state = rememberWebViewState(url = url)
         val navigator = rememberWebViewNavigator()
-        CXScaffold(
+        CCScaffold(
             topBar = {
-                CXNormalNavigationBar(
+                CCNormalNavigationBar(
                     title = title.ifEmpty { state.pageTitle },
 //                    leftView = {
 //                        Icon(id =R.drawable.system_xmark, size = 16) {
@@ -49,9 +49,9 @@ class CXWebView : BaseScreen() {
             },
         ) { innerPadding ->
             if (url.isEmpty()) {
-                CXEmptyView()
+                CCEmptyView()
             } else {
-                CXWebKit(
+                CCWebKit(
                     state = state,
                     navigator = navigator,
                     captureBackPresses = false,

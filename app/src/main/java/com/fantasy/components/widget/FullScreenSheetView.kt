@@ -12,7 +12,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.platform.LocalInspectionMode
-import com.fantasy.components.animations.cxSlideInVertically
+import com.fantasy.components.animations.ccSlideInVertically
 
 @Composable
 fun FullScreenSheetView(
@@ -30,7 +30,7 @@ fun FullScreenSheetView(
         var isShow by remember {
             mutableStateOf(true)
         }
-        CXFullscreenPopup(
+        CCFullscreenPopup(
             onSystemBack = {
                 onVisibleChange(false)
             }
@@ -41,7 +41,7 @@ fun FullScreenSheetView(
 
             Box(
                 modifier = Modifier
-                    .cxSlideInVertically(
+                    .ccSlideInVertically(
                         show = isShow,
                         duration = 250,
                         onDismissFinished = {

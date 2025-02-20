@@ -9,7 +9,7 @@ import com.fantasy.components.tools.localDelay
 import com.fantasy.components.tools.readObject
 import com.fantasy.components.tools.writeObject
 import com.fantasy.cxtemplate.model.UserInfo
-import com.fantasy.components.tools.CXKV
+import com.fantasy.components.tools.CCKV
 import com.fantasy.components.tools.getContext
 import com.fantasy.components.tools.isDebugBuilder
 import com.fantasy.cxtemplate.model.TokenModel
@@ -28,7 +28,7 @@ private const val kPushAlias = "PushAlias"
 // /data/user/0/com.fantasy.strangerbell.debug/files
 // 系统自动清理： 当设备的存储空间变得紧张时，系统会自动清理应用的缓存目录，以释放更多的存储空间。这是由系统决定的，你无法控制何时会发生。
 private val fileParentFiles = getContext.filesDir
-private val pushAlias = CXKV.shared.decodeString(kPushAlias, "")
+private val pushAlias = CCKV.shared.decodeString(kPushAlias, "")
 
 val userManager = LocalUserManager.shared
 class LocalUserManager private constructor() : ViewModel() {
@@ -59,7 +59,7 @@ class LocalUserManager private constructor() : ViewModel() {
         getToken()
 
         viewModelScope.launch {
-            var user = CXKV.shared.decodeParcelable<UserInfo>(kCurrentUserInfo)
+            var user = CCKV.shared.decodeParcelable<UserInfo>(kCurrentUserInfo)
             if (user == null) {
                 val userInfoFile = File(fileParentFiles, kCurrentUserInfo)
                 user = if (userInfoFile.isFile) {
@@ -76,10 +76,10 @@ class LocalUserManager private constructor() : ViewModel() {
         // 先从 MMKV 里获取 token 字符串 如果有则直接使用
         // 如果没有则从 MMKV 读去 TokenModel 有则直接使用
         // 没有则从文件读取，有则直接用
-        _access_token = CXKV.shared.decodeString(kAccessToken)
+        _access_token = CCKV.shared.decodeString(kAccessToken)
 
         if (_access_token.isEmpty()) {
-            var token = CXKV.shared.decodeParcelable<TokenModel>(kTokenModel)
+            var token = CCKV.shared.decodeParcelable<TokenModel>(kTokenModel)
             if (token == null) {
                 val tokenFile = File(fileParentFiles, kTokenModel)
                 token = if (tokenFile.isFile) {
@@ -118,10 +118,10 @@ class LocalUserManager private constructor() : ViewModel() {
         _access_token = model.access_token
         viewModelScope.launch(Dispatchers.IO) {
             launch {
-                CXKV.shared.encode(kAccessToken, _access_token)
+                CCKV.shared.encode(kAccessToken, _access_token)
             }
             launch {
-                CXKV.shared.encode(kTokenModel, model)
+                CCKV.shared.encode(kTokenModel, model)
             }
             launch {
                 File(fileParentFiles, kTokenModel).writeObject(model)
@@ -136,7 +136,7 @@ class LocalUserManager private constructor() : ViewModel() {
             if (pushAlias == model.pushAlias) {
                 ThirdSDKManager.shared.bindPushAlias(model.pushAlias)
             } else {
-                CXKV.shared.encode(kPushAlias, model.pushAlias)
+                CCKV.shared.encode(kPushAlias, model.pushAlias)
                 ThirdSDKManager.shared.unBindAlias(model.pushAlias)
                 ThirdSDKManager.shared.bindPushAlias(model.pushAlias)
             }
@@ -144,7 +144,7 @@ class LocalUserManager private constructor() : ViewModel() {
 
         viewModelScope.launch(Dispatchers.IO) {
             launch {
-                CXKV.shared.encode(kCurrentUserInfo, model)
+                CCKV.shared.encode(kCurrentUserInfo, model)
             }
             launch {
                 File(fileParentFiles, kCurrentUserInfo).writeObject(model)

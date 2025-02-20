@@ -1,8 +1,8 @@
 package com.fantasy.cxtemplate
 
 import android.app.Application
-import com.fantasy.components.tools.CXCoil
-import com.fantasy.components.tools.CXKV
+import com.fantasy.components.tools.CCCoil
+import com.fantasy.components.tools.CCKV
 import com.fantasy.components.tools.PerformanceManager
 import com.fantasy.components.tools.isDebugBuilder
 import org.koin.android.ext.koin.androidContext
@@ -22,8 +22,8 @@ class MainApplication: Application() {
             androidContext(this@MainApplication)
             modules(module {  })
         }
-        CXKV.start() // 同步
-        CXCoil.start() // 里面的是异步IO
+        CCKV.start() // 同步
+        CCCoil.start() // 里面的是异步IO
 //        ThirdSDKManager.shared.initSDK() // 有同步初始化 也有异步IO
         PerformanceManager.shared.applicationLaunchEnd()
     }

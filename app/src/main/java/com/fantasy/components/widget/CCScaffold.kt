@@ -8,18 +8,18 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 
 @Composable
-fun CXScaffold(
+fun CCScaffold(
     modifier: Modifier = Modifier,
     title: String? = null,
-    containerColor: Color = CXColor.b1,
-    contentColor: Color = CXColor.f1,
+    containerColor: Color = CCColor.b1,
+    contentColor: Color = CCColor.f1,
     isShowLoading: Boolean = false,
     canClickOutsideWithLoading: Boolean = false,
     topBar: @Composable (Color) -> Unit = {
-        CXNormalNavigationBar(
+        CCNormalNavigationBar(
             title = title,
             backgroundColor = it
         )
@@ -35,7 +35,7 @@ fun CXScaffold(
         contentColor = contentColor,
     ) { innerPadding ->
         content(innerPadding)
-        CXLoading(
+        CCLoading(
             isShow = isShowLoading,
             canClickOutside = canClickOutsideWithLoading
         )
@@ -45,9 +45,9 @@ fun CXScaffold(
 @Preview
 @Composable
 private fun Preview() {
-    CXScaffold(
+    CCScaffold(
         topBar = {
-            CXNormalNavigationBar(
+            CCNormalNavigationBar(
                 title = "preview"
             )
         },

@@ -14,7 +14,7 @@ import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 
 @Composable
-fun CXLottieView(
+fun CCLottieView(
     @RawRes resId: Int,
     iterations: Int = LottieConstants.IterateForever,
     isPlaying: Boolean = true,

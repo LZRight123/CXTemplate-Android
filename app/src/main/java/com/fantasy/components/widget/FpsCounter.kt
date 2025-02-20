@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fantasy.components.extension.f1c
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 import kotlinx.coroutines.delay
 
 @Composable
@@ -51,14 +51,14 @@ fun FpsCounter() {
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
-            .background(CXColor.error, RoundedCornerShape(49.8f))
+            .background(CCColor.error, RoundedCornerShape(49.8f))
             .padding(horizontal = 8.dp, vertical = 2.dp)
     ) {
         Text(
             text = "FPS: ",
-            style = CXFont.f3b.v2.f1c,
+            style = CCFont.f3b.v2.f1c,
         )
-        Text(text = "$fps", style = CXFont.f1.v1.f1c)
+        Text(text = "$fps", style = CCFont.f1.v1.f1c)
     }
 
 }

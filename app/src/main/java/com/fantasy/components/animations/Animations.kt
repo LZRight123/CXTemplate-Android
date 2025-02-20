@@ -19,7 +19,7 @@ import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.screenHeight
 import com.fantasy.components.tools.screenWith
 import com.fantasy.components.tools.toPx
@@ -27,7 +27,7 @@ import com.fantasy.components.widget.PreviewScreen
 import io.github.sagar_viradiya.rememberKoreography
 
 
-fun Modifier.cxSlideInVertically(
+fun Modifier.ccSlideInVertically(
     show: Boolean = true,
     duration: Int = 600,
     delay: Int = 0,
@@ -64,7 +64,7 @@ fun Modifier.cxSlideInVertically(
 
 
 @Composable
-fun Modifier.cxSlideInHorizontally(
+fun Modifier.ccSlideInHorizontally(
     show: Boolean = true,
     duration: Int = 600,
     delay: Int = 0,
@@ -99,7 +99,7 @@ fun Modifier.cxSlideInHorizontally(
     }
 }
 
-fun Modifier.cxAlphaIn(
+fun Modifier.ccAlphaIn(
     show: Boolean = true,
     duration: Int = 600,
     delay: Int = 0,
@@ -128,7 +128,7 @@ fun Modifier.cxAlphaIn(
     }
 }
 
-fun Modifier.cxScaleIn(
+fun Modifier.ccScaleIn(
     show: Boolean = true,
     duration: Int = 600,
     delay: Int = 0,
@@ -158,7 +158,7 @@ fun Modifier.cxScaleIn(
     }
 }
 
-fun Modifier.cxJumpInVertically(
+fun Modifier.ccJumpInVertically(
     show: Boolean = true,
     offset: Float = -20f,
     duration: Int = 300,
@@ -197,10 +197,10 @@ private fun _preview() {
     PreviewScreen {
         Box(
             modifier = Modifier
-                .cxSlideInHorizontally()
-                .cxSlideInVertically()
-                .cxAlphaIn()
-                .background(CXColor.random)
+                .ccSlideInHorizontally()
+                .ccSlideInVertically()
+                .ccAlphaIn()
+                .background(CCColor.random)
                 .size(300.dp)
         )
     }

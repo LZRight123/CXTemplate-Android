@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Stable
-fun CXPaddingValues(
+fun CCPaddingValues(
     innerPadding: PaddingValues = PaddingValues(0.dp),
     horizontal: Dp = 0.dp,
     vertical: Dp = 0.dp,

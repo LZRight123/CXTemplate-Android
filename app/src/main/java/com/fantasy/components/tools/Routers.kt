@@ -45,7 +45,7 @@ fun openAppRating() {
     if (pname.contains(".debug")) {
         pname = pname.replace(".debug", "")
     }
-    cxlog("pname is = ${pname}")
+    cclog("pname is = ${pname}")
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=${pname}"))
     ActivityUtils.getTopActivity()?.startActivity(intent)
 }

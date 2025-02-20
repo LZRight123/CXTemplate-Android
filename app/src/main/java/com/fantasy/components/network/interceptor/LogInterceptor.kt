@@ -1,6 +1,6 @@
 package com.fantasy.components.network.interceptor
 
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.tools.cclog
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
@@ -31,7 +31,7 @@ class LogInterceptor : Interceptor {
             val buffer = source.buffer.clone()
             logString += "\n响应回参: ${buffer.readUtf8()}"
         }
-        cxlog("网络请求 $logString", )
+        cclog("网络请求 $logString", )
         return response
     }
 

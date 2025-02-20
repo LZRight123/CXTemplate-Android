@@ -1,6 +1,6 @@
 package com.fantasy.components.network.interceptor
 
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.tools.cclog
 import okhttp3.Interceptor
 import okhttp3.MediaType
 import okhttp3.Response
@@ -18,7 +18,7 @@ class ProgressResponseInterceptor : Interceptor {
         return originalResponse.newBuilder()
             .body(ProgressResponseBody(originalResponse.body!!, object : ProgressListener {
                 override fun update(bytesRead: Long, contentLength: Long, done: Boolean) {
-                    cxlog("")
+                    cclog("")
                 }
 
             }))

@@ -15,8 +15,8 @@ import com.fantasy.components.extension.compose.Icon
 import com.fantasy.components.extension.compose.addHazeOver
 import com.fantasy.components.extension.compose.fantasyClick
 import com.fantasy.components.extension.f1c
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 import com.fantasy.components.tools.navBarHeight
 import com.fantasy.components.tools.Apphelper
 import com.fantasy.cxtemplate.R
@@ -24,8 +24,8 @@ import dev.funkymuse.compose.core.ifFalse
 import dev.funkymuse.compose.core.ifNotNull
 
 @Composable
-fun CXNavigationBar(
-    backgroundColor: Color? = CXColor.b2.copy(0.95f),
+fun CCNavigationBar(
+    backgroundColor: Color? = CCColor.b2.copy(0.95f),
     horizontalPadding: Dp = 12.dp,
     ignoreStatusBar: Boolean = false,
     leftView: @Composable (RowScope.() -> Unit)? = null,
@@ -71,16 +71,16 @@ fun CXNavigationBar(
 }
 
 @Composable
-fun CXNormalNavigationBar(
+fun CCNormalNavigationBar(
     title: String? = null,
-    backgroundColor: Color? = CXColor.b2.copy(0.95f),
+    backgroundColor: Color? = CCColor.b2.copy(0.95f),
     ignoreStatusBar: Boolean = false,
     leftView: @Composable (RowScope.() -> Unit)? = null,
     rightView: @Composable (RowScope.() -> Unit)? = null,
     titleView: @Composable (() -> Unit)? = null,
     backAction: (() -> Unit)? = null,
 ) {
-    CXNavigationBar(
+    CCNavigationBar(
         backgroundColor = backgroundColor,
         horizontalPadding = 12.dp,
         ignoreStatusBar = ignoreStatusBar,
@@ -110,7 +110,7 @@ fun CXNormalNavigationBar(
             title?.let {
                 Text(
                     text = it,
-                    style = CXFont.f1b.v1.f1c.alignCenter,
+                    style = CCFont.f1b.v1.f1c.alignCenter,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis,
                     modifier = Modifier.fillMaxWidth(0.8f),
@@ -123,5 +123,5 @@ fun CXNormalNavigationBar(
 @Preview
 @Composable
 private fun Preview() {
-    CXNavigationBar(titleView = { Text("Title") })
+    CCNavigationBar(titleView = { Text("Title") })
 }

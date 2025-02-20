@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.dp
 import com.fantasy.components.extension.compose.addCardBack
 import com.fantasy.components.extension.f2c
 import com.fantasy.components.extension.randomString
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCFont
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.ui.composed
@@ -24,15 +24,15 @@ import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.navBarHeight
 import com.fantasy.components.tools.safeAreaBottom
 import com.fantasy.components.tools.safeAreaTop
 import com.fantasy.components.tools.tabBarHeight
 
 @Composable
-fun Modifier.cxFadeEdge(
-    color: Color = CXColor.b1,
+fun Modifier.ccFadeEdge(
+    color: Color = CCColor.b1,
     top: Dp = safeAreaTop + navBarHeight + 50.dp,
     bottom: Dp = safeAreaBottom + tabBarHeight + 80.dp
 ) = composed {
@@ -138,9 +138,9 @@ private fun _preview() {
         verticalArrangement = Arrangement.spacedBy(24.dp),
         contentPadding = PaddingValues(18.dp),
         modifier = Modifier
-            .cxFadeEdge()
+            .ccFadeEdge()
             .bottomFadingEdge(
-                color = CXColor.random,
+                color = CCColor.random,
 
                 )
             .fillMaxSize(),
@@ -149,7 +149,7 @@ private fun _preview() {
 
         items(30) {
             Text(
-                text = randomString(10), style = CXFont.f1b.v1.f2c,
+                text = randomString(10), style = CCFont.f1b.v1.f2c,
                 modifier = Modifier
                     .addCardBack()
                     .fillMaxWidth()

@@ -18,11 +18,11 @@ import com.fantasy.components.base.BaseActivity
 import com.fantasy.components.tools.isDebugBuilder
 import com.fantasy.components.tools.Apphelper
 import com.fantasy.components.tools.RouterAnimate
-import com.fantasy.components.widget.CXFullscreenPopup
-import com.fantasy.components.widget.CXLoading
+import com.fantasy.components.widget.CCFullscreenPopup
+import com.fantasy.components.widget.CCLoading
 import com.fantasy.components.widget.FpsCounter
 import com.fantasy.components.widget.ImageViewer
-import com.fantasy.components.widget.CXInfoBar
+import com.fantasy.components.widget.CCInfoBar
 import com.fantasy.cxtemplate.view.WelcomeView
 
 class MainActivity : BaseActivity() {
@@ -74,25 +74,25 @@ class MainActivity : BaseActivity() {
             }
         }
 
-        CXInfoBar(message = Apphelper.toast) {
+        CCInfoBar(message = Apphelper.toast) {
             Apphelper.toastHidden()
         }
 
         // 普通弹框
-//        CXNormalAlert(Apphelper.normalAlert)
+//        CCNormalAlert(Apphelper.normalAlert)
 
         // 挂载视图
         // 权限弹框用过
         if (Apphelper.attachShow) {
-            CXFullscreenPopup {
+            CCFullscreenPopup {
                 Apphelper.attachContent?.let { it() }
             }
         }
 
         // 全局loading
         if (Apphelper.loadingShow) {
-            CXFullscreenPopup {
-                CXLoading()
+            CCFullscreenPopup {
+                CCLoading()
             }
         }
     }

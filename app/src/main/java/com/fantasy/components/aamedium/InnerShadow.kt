@@ -19,25 +19,26 @@ import androidx.compose.ui.graphics.drawscope.drawIntoCanvas
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.widget.PreviewScreen
 
 /**
+ * https://medium.com/@kappdev/inner-shadow-in-jetpack-compose-d80dcd56f6cf
  * Adds an inner shadow effect to the content.
  *
- * @param shape The shape of the shadow.
- * @param color The color of the shadow.
- * @param blur The blur radius of the shadow.
- * @param offsetY The shadow offset along the Y-axis.
- * @param offsetX The shadow offset along the X-axis.
- * @param spread The amount to expand the shadow beyond its size.
+ * shape 👉 阴影的形状。
+ * color 👉 阴影的颜色。
+ * blurRadio 👉 阴影的模糊半径。
+ * offsetY 👉 阴影沿 Y 轴的偏移量。
+ * offsetX 👉 阴影沿 X 轴的偏移量。
+ * spread 👉 将阴影扩大到其尺寸之外的量。
  *
  * @return A modified Modifier with the inner shadow effect applied.
  */
-fun Modifier.innerShadow(
+private fun Modifier.innerShadow(
     shape: Shape = RectangleShape,
     color: Color = Color.Black,
-    blur: Dp = 4.dp,
+    radius: Dp = 4.dp,
     offsetY: Dp = 2.dp,
     offsetX: Dp = 2.dp,
     spread: Dp = 0.dp
@@ -58,8 +59,8 @@ fun Modifier.innerShadow(
 
         paint.asFrameworkPaint().apply {
             xfermode = PorterDuffXfermode(PorterDuff.Mode.DST_OUT)
-            if (blur.toPx() > 0) {
-                maskFilter = BlurMaskFilter(blur.toPx(), BlurMaskFilter.Blur.NORMAL)
+            if (radius.toPx() > 0) {
+                maskFilter = BlurMaskFilter(radius.toPx(), BlurMaskFilter.Blur.NORMAL)
             }
         }
 
@@ -71,11 +72,10 @@ fun Modifier.innerShadow(
     }
 }
 
-@Composable
-fun Modifier.outerShadow(
-    shape: Shape,
-    color: Color = CXColor.f1,
-    blur: Dp = 4.dp,
+private fun Modifier.outerShadow(
+    shape: Shape = RectangleShape,
+    color: Color = Color.Black,
+    radius: Dp = 4.dp,
     offsetY: Dp = 2.dp,
     offsetX: Dp = 2.dp,
     spread: Dp = 0.dp
@@ -89,8 +89,8 @@ fun Modifier.outerShadow(
         val paint = Paint()
         paint.color = color
         paint.asFrameworkPaint().apply {
-            if (blur.toPx() > 0) {
-                maskFilter = BlurMaskFilter(blur.toPx(), BlurMaskFilter.Blur.NORMAL)
+            if (radius.toPx() > 0) {
+                maskFilter = BlurMaskFilter(radius.toPx(), BlurMaskFilter.Blur.NORMAL)
             }
         }
 
@@ -103,6 +103,24 @@ fun Modifier.outerShadow(
     drawContent()
 }
 
+fun Modifier.innerShadow(
+    shape: Shape = RectangleShape,
+    color: Color = Color.Black,
+    radius: Int = 4,
+    offsetY: Int = 0,
+    offsetX: Int = 0,
+    spread: Int = 0
+) = innerShadow(shape, color, radius.dp, offsetY.dp, offsetX.dp, spread.dp)
+
+fun Modifier.outerShadow(
+    shape: Shape = RectangleShape,
+    color: Color = Color.Black,
+    radius: Int = 4,
+    offsetY: Int = 0,
+    offsetX: Int = 0,
+    spread: Int = 0
+) = outerShadow(shape, color, radius.dp, offsetY.dp, offsetX.dp, spread.dp)
+
 @Preview(showBackground = true)
 @Composable
 private fun _preview() {
@@ -111,11 +129,11 @@ private fun _preview() {
         Box(modifier = Modifier
             .innerShadow(
                 shape = RectangleShape,
-                color = CXColor.random,
-                blur = 10.dp,
-                offsetY = -5.dp,
-                offsetX = -5.dp,
-                spread = 10.dp
+                color = CCColor.random,
+                radius = 10,
+                offsetY = -5,
+                offsetX = -5,
+                spread = 10
             )
             .size(200.dp))
 
@@ -123,10 +141,10 @@ private fun _preview() {
         Box(modifier = Modifier
             .outerShadow(
                 shape = RectangleShape,
-                blur = 0.dp,
-                offsetY = 10.dp,
-                offsetX = 10.dp,
-                spread = 1.dp
+                radius = 0,
+                offsetY = 10,
+                offsetX = 10,
+                spread = 1
             )
             .size(200.dp)
         )

@@ -105,9 +105,9 @@ fun Long.toLocalDate(): LocalDate? {
     return instant.atZone(zoneId).toLocalDate()
 }
 
-fun LocalDate.cxDateString(
+fun LocalDate.ccDateString(
     defaultValue: (LocalDate) -> String = {
-        it.toStringFormat(cxDateFormatter)
+        it.toStringFormat(ccDateFormatter)
     }
 ): String {
     val daysDifference = ChronoUnit.DAYS.between(this, LocalDate.now())

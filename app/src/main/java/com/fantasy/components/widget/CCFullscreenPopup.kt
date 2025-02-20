@@ -37,7 +37,7 @@ import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import java.util.UUID
 
 @Composable
-fun CXFullscreenPopup(
+fun CCFullscreenPopup(
     onSystemBack: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {

@@ -20,11 +20,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.fantasy.components.animations.cxScaleIn
+import com.fantasy.components.animations.ccScaleIn
 import com.fantasy.components.extension.b1c
 import com.fantasy.components.extension.mockImage
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 import com.skydoves.landscapist.ImageOptions
 import me.saket.telephoto.zoomable.rememberZoomableState
 import me.saket.telephoto.zoomable.zoomable
@@ -58,7 +58,7 @@ fun ImageViewer(
         enter = fadeIn(),
         exit = fadeOut()
     ) {
-        CXFullscreenPopup(
+        CCFullscreenPopup(
             onSystemBack = { vm.dismiss() }
         ) {
 
@@ -68,7 +68,7 @@ fun ImageViewer(
             }
             Box(
                 modifier = Modifier
-                    .background(CXColor.b1.copy(0.97f))
+                    .background(CCColor.b1.copy(0.97f))
                     .fillMaxSize(),
                 contentAlignment = Alignment.TopCenter
             ) {
@@ -76,7 +76,7 @@ fun ImageViewer(
                 HorizontalPager(
                     state = pageState,
                     modifier = Modifier
-                        .cxScaleIn(
+                        .ccScaleIn(
                             show = vm.images != null,
                             duration = if (vm.images != null) 300 else 100
                         )
@@ -87,7 +87,7 @@ fun ImageViewer(
                             zoomState.resetZoom(false)
                         }
                     }
-                    CXCoilImage(
+                    CCCoilImage(
                         model = { images[page] },
                         imageOptions = ImageOptions(contentScale = ContentScale.FillWidth),
                         modifier = Modifier
@@ -104,11 +104,11 @@ fun ImageViewer(
                 if (images.size > 1) {
                     Text(
                         text = "${pageState.currentPage + 1}/${images.size}",
-                        style = CXFont.f1.v1.b1c,
+                        style = CCFont.f1.v1.b1c,
                         modifier = Modifier
                             .statusBarsPadding()
                             .padding(top = 12.dp)
-                            .background(CXColor.f1.copy(0.4f), RoundedCornerShape(8.dp))
+                            .background(CCColor.f1.copy(0.4f), RoundedCornerShape(8.dp))
                             .padding(
                                 horizontal = 16.dp,
                                 vertical = 8.dp

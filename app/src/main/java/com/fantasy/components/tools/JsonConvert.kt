@@ -79,7 +79,7 @@ fun jsonConvertTest() {
         }
     """.trimIndent()
     val obj = fromJson<JsonConvertTestModel>(jsonString)
-    cxlog(obj)
+    cclog(obj)
 //    val model = JsonConvertTestModel(
 //        string = "",
 //        double = null,

@@ -18,10 +18,10 @@ import javax.net.ssl.SSLContext
 import javax.net.ssl.SSLSocketFactory
 import javax.net.ssl.X509TrustManager
 
-class CXCoil private constructor() : ViewModel() {
+class CCCoil private constructor() : ViewModel() {
     companion object {
         @SuppressLint("StaticFieldLeak")
-        val shared = CXCoil()
+        val shared = CCCoil()
 
         fun start() {
             shared.viewModelScope.launch(Dispatchers.IO) {
@@ -89,7 +89,7 @@ class CXCoil private constructor() : ViewModel() {
                 .build()
         }
 
-        cxlog("coil set imageLoader")
+        cclog("coil set imageLoader")
     }
 }
 

@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.fragment.app.FragmentActivity
-import com.fantasy.components.theme.CXTheme
+import com.fantasy.components.theme.CCTheme
 
 abstract class BaseActivity : FragmentActivity() {
 
@@ -34,7 +34,7 @@ abstract class BaseActivity : FragmentActivity() {
         enableEdgeToEdge()
 
         setContent {
-            CXTheme {
+            CCTheme {
                 ComposeContent()
             }
         }

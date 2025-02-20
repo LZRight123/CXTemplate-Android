@@ -9,28 +9,28 @@ import androidx.compose.ui.unit.Density
 
 
 @Composable
-fun CXTheme(
+fun CCTheme(
     content: @Composable () -> Unit
 ) {
     val colors = if (isSystemInDarkTheme()) DarkColorPalette  else  LightColorPalette
     CompositionLocalProvider(
-        LocalCXMutableColors provides colors,
-        LocalContentColor provides CXColor.f1,
+        LocalCCMutableColors provides colors,
+        LocalContentColor provides CCColor.f1,
         LocalDensity provides Density(LocalDensity.current.density,
             fontScale = 1f
         ),
     ) {
         val materialColors = MaterialTheme.colorScheme.copy(
-            surface = CXColor.b1, // surface 背景
-            onSurface = CXColor.f1, // surface 内容
-            background = CXColor.b1, // Scaffold 背景
-            onBackground = CXColor.f1, // Scaffold Button 内容
-            primary = CXColor.f1, // Button 背景
-            onPrimary = CXColor.f1,
-            surfaceContainerHigh = CXColor.b1, //下拉刷新的指示条背景色是这个颜色
-            onSurfaceVariant = CXColor.f1, //下拉刷新的指示条内容是这个颜色
-            errorContainer = CXColor.error,
-            error = CXColor.error,
+            surface = CCColor.b1, // surface 背景
+            onSurface = CCColor.f1, // surface 内容
+            background = CCColor.b1, // Scaffold 背景
+            onBackground = CCColor.f1, // Scaffold Button 内容
+            primary = CCColor.f1, // Button 背景
+            onPrimary = CCColor.f1,
+            surfaceContainerHigh = CCColor.b1, //下拉刷新的指示条背景色是这个颜色
+            onSurfaceVariant = CCColor.f1, //下拉刷新的指示条内容是这个颜色
+            errorContainer = CCColor.error,
+            error = CCColor.error,
 
         )
 

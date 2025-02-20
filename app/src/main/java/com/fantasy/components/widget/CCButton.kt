@@ -35,24 +35,24 @@ import androidx.compose.ui.unit.dp
 import com.fantasy.components.aamedium.bounceClick
 import com.fantasy.components.aamedium.shakeClickEffect
 import com.fantasy.components.extension.compose.addCardBack
-import com.fantasy.components.extension.cxshimmer
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.extension.ccshimmer
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.mada
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.tools.cclog
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun CXButton(
+fun CCButton(
     onClick: () -> Unit,
     onLongClick: (() -> Unit)? = null,
     backgroundColor: Color? = null,
     pressedBackgroundColor: Color? = null,
     pressedIndication: Indication? = null,
-    contentColor: Color = CXColor.f1,
-    disabledBackgroundColor: Color = (backgroundColor ?: CXColor.b1).copy(alpha = 0.3f),
+    contentColor: Color = CCColor.f1,
+    disabledBackgroundColor: Color = (backgroundColor ?: CCColor.b1).copy(alpha = 0.3f),
     disabledContentColor: Color = contentColor.copy(alpha = 0.3f),
     pressedScale: Float = 0.98f,
     isShowShimmer: Boolean = false,
@@ -81,7 +81,7 @@ fun CXButton(
             contentAlignment = Alignment.Center,
             modifier = Modifier
                 .then(
-                    if (isShowShimmer) Modifier.cxshimmer(600) else Modifier
+                    if (isShowShimmer) Modifier.ccshimmer(600) else Modifier
                 )
                 .bounceClick(canClick, pressedScale)
                 .shakeClickEffect(!canClick)
@@ -101,7 +101,7 @@ fun CXButton(
                         }
                     },
                     onLongClick = if (onLongClick == null) null else ({
-                        cxlog("on long click ")
+                        cclog("on long click ")
                         mada()
                         scope.launch {
                             clickWithOutPressed = true
@@ -164,7 +164,7 @@ fun CXButton(
 @Composable
 private fun Preview() {
     PreviewScreen {
-        CXButton(
+        CCButton(
             onClick = { },
             modifier = Modifier.addCardBack()
         ) {
@@ -178,7 +178,7 @@ private fun Preview() {
             }
         }
 
-        CXButton(
+        CCButton(
             onClick = { },
             modifier = Modifier.addCardBack()
         ) {

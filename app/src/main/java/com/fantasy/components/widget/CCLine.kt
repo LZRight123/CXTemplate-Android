@@ -9,12 +9,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 
 @Composable
-fun CXHLine(
+fun CCHLine(
     modifier: Modifier = Modifier,
-    color: Color = CXColor.f3,
+    color: Color = CCColor.f3,
     thickness: Dp = 0.2.dp,
 ) {
     HorizontalDivider(
@@ -25,9 +25,9 @@ fun CXHLine(
 }
 
 @Composable
-fun CXVLine(
+fun CCVLine(
     modifier: Modifier = Modifier,
-    color: Color = CXColor.f3,
+    color: Color = CCColor.f3,
     thickness: Dp = 0.2.dp,
 ) {
     VerticalDivider(
@@ -41,8 +41,8 @@ fun CXVLine(
 @Composable
 private fun Preview() {
     PreviewScreen(verticalArrangement = 24) {
-        CXHLine()
-        CXHLine()
+        CCHLine()
+        CCHLine()
     }
 }
 

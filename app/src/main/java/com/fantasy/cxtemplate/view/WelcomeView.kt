@@ -24,12 +24,12 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.fantasy.components.base.BaseViewModel
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
+import com.fantasy.components.tools.cclog
 import com.fantasy.components.tools.screenWith
 import com.fantasy.components.base.BaseScreen
-import com.fantasy.components.widget.CXLottieView
+import com.fantasy.components.widget.CCLottieView
 import com.fantasy.components.widget.PreviewScreen
 import com.fantasy.cxtemplate.R
 import com.fantasy.cxtemplate.manager.userManager
@@ -48,7 +48,7 @@ class WelcomeViewModel : BaseViewModel() {
     }
 
     override fun onCleared() {
-        cxlog("WelcomeViewModel onCleared")
+        cclog("WelcomeViewModel onCleared")
     }
 
     fun gotoMain() {
@@ -79,7 +79,7 @@ class WelcomeView : BaseScreen() {
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(12.dp),
             ) {
-                CXLottieView(resId = R.raw.loading_gray, modifier = Modifier.fillMaxWidth(0.5f))
+                CCLottieView(resId = R.raw.loading_gray, modifier = Modifier.fillMaxWidth(0.5f))
 
                 Column(
                     verticalArrangement = Arrangement.spacedBy(12.dp),
@@ -88,7 +88,7 @@ class WelcomeView : BaseScreen() {
 
                     Text(
                         text = "欢迎欢迎，热烈欢迎",
-                        style = CXFont.f1.v1
+                        style = CCFont.f1.v1
                     )
                 }
             }

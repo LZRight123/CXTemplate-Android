@@ -22,20 +22,20 @@ import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.fantasy.components.extension.f1c
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 
 
 @Composable
-fun CXTextFiled(
+fun CCTextFiled(
     value: String,
     placeholder: String = "请输入...",
-    textStyle: TextStyle = CXFont.f1.v1.f1c,
-    placeholderStyle: TextStyle = textStyle.copy(color = CXColor.f1.copy(alpha = 0.3f)),
+    textStyle: TextStyle = CCFont.f1.v1.f1c,
+    placeholderStyle: TextStyle = textStyle.copy(color = CCColor.f1.copy(alpha = 0.3f)),
     innerTextFieldAlignment: Alignment = Alignment.TopStart,
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    cursorBrush: Brush = SolidColor(CXColor.f1),
+    cursorBrush: Brush = SolidColor(CCColor.f1),
     leadingIcon: @Composable (RowScope.() -> Unit)? = null,
     trailingIcon: @Composable (RowScope.() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -104,14 +104,14 @@ fun CXTextFiled(
 }
 
 @Composable
-fun CXTextFiled(
+fun CCTextFiled(
     fieldValue: TextFieldValue,
     placeholder: String = "请输入",
-    textStyle: TextStyle = CXFont.f2.v1.f1c,
-    placeholderStyle: TextStyle = textStyle.copy(color = CXColor.f1.copy(alpha = 0.3f)),
+    textStyle: TextStyle = CCFont.f2.v1.f1c,
+    placeholderStyle: TextStyle = textStyle.copy(color = CCColor.f1.copy(alpha = 0.3f)),
     enabled: Boolean = true,
     readOnly: Boolean = false,
-    cursorBrush: Brush = SolidColor(CXColor.f1),
+    cursorBrush: Brush = SolidColor(CCColor.f1),
     leadingIcon: @Composable (RowScope.() -> Unit)? = null,
     trailingIcon: @Composable (RowScope.() -> Unit)? = null,
     visualTransformation: VisualTransformation = VisualTransformation.None,
@@ -125,7 +125,7 @@ fun CXTextFiled(
     modifier: Modifier = Modifier,
     onValueChange: (TextFieldValue) -> Unit,
 ) {
-    CXTextFiled(
+    CCTextFiled(
         value = fieldValue.text,
         placeholder = placeholder,
         textStyle = textStyle,

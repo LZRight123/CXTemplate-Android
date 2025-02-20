@@ -6,8 +6,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
 import com.fantasy.components.extension.f1c
-import com.fantasy.components.theme.CXFont
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.theme.CCFont
+import com.fantasy.components.tools.cclog
 import com.halilibo.richtext.markdown.Markdown
 import com.halilibo.richtext.markdown.MarkdownParseOptions
 import com.halilibo.richtext.ui.RichTextStyle
@@ -15,14 +15,14 @@ import com.halilibo.richtext.ui.material3.RichText
 import com.halilibo.richtext.ui.string.*
 
 @Composable
-fun CXMarkdown(
+fun CCMarkdown(
     content: String,
-    style: TextStyle = CXFont.f1.v1.f1c,
-    boldStyle: TextStyle = CXFont.f1b.v1.f1c,
-    linkStyle: TextStyle = CXFont.f1b.v2.f1c,
+    style: TextStyle = CCFont.f1.v1.f1c,
+    boldStyle: TextStyle = CCFont.f1b.v1.f1c,
+    linkStyle: TextStyle = CCFont.f1b.v2.f1c,
     markdownParseOptions: MarkdownParseOptions = MarkdownParseOptions.Default,
     modifier: Modifier = Modifier,
-    onLinkClicked: ((String) -> Unit)? = { cxlog(it) }
+    onLinkClicked: ((String) -> Unit)? = { cclog(it) }
 ) {
     ProvideTextStyle(value = style) {
         RichText(

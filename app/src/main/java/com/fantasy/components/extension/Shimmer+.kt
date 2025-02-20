@@ -15,7 +15,7 @@ import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
 
 
-fun Modifier.cxshimmer(
+fun Modifier.ccshimmer(
     duration: Int = 600,
 ): Modifier = composed {
     val shimmer = rememberShimmer(

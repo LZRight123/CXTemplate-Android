@@ -5,14 +5,14 @@ import android.os.Parcelable
 import androidx.lifecycle.ViewModel
 import com.tencent.mmkv.MMKV
 
-class CXKV private constructor() : ViewModel() {
+class CCKV private constructor() : ViewModel() {
     companion object {
         @SuppressLint("StaticFieldLeak")
-        val shared = CXKV()
+        val shared = CCKV()
 
         fun start() {
             val rootDir = MMKV.initialize(getContext)
-            cxlog("FantasyKV root: $rootDir")
+            cclog("FantasyKV root: $rootDir")
         }
     }
 

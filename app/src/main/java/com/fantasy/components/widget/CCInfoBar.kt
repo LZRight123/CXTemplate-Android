@@ -25,10 +25,10 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.animations.cxSlideInVertically
+import com.fantasy.components.animations.ccSlideInVertically
 import com.fantasy.components.extension.color
-import com.fantasy.components.theme.CXColor
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.CCFont
 import com.fantasy.components.tools.safeAreaTop
 import com.fantasy.components.tools.screenWith
 import kotlinx.coroutines.Job
@@ -36,12 +36,12 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 @Composable
-fun CXInfoBar(
-    message: CXInfoBarMessage?,
+fun CCInfoBar(
+    message: CCInfoBarMessage?,
     onDismiss: () -> Unit
 ) {
     if (message != null) {
-        CXFullscreenPopup {
+        CCFullscreenPopup {
             // 为了执行 onDismiss 时动画
             var isShowAnimation by remember {
                 mutableStateOf(true)
@@ -56,7 +56,7 @@ fun CXInfoBar(
                     delay(2_500)
 //                    ndLog("job over")
 
-                    if (message.type != CXToastType.loading) {
+                    if (message.type != CCToastType.loading) {
                         isShowAnimation = false
                     }
                 }
@@ -65,7 +65,7 @@ fun CXInfoBar(
             Box(
                 contentAlignment = Alignment.Center,
                 modifier = Modifier
-                    .cxSlideInVertically(
+                    .ccSlideInVertically(
                         show = isShowAnimation,
                         reverse = true,
                         onDismissFinished = {
@@ -82,24 +82,24 @@ fun CXInfoBar(
                         .shadow(
                             elevation = 4.dp,
                             shape = CircleShape,
-                            ambientColor = CXColor.black.copy(0.5f),
-                            spotColor = CXColor.black.copy(0.5f),
+                            ambientColor = CCColor.black.copy(0.5f),
+                            spotColor = CCColor.black.copy(0.5f),
                         )
-                        .background(CXColor.white, CircleShape)
+                        .background(CCColor.white, CircleShape)
                         .padding(horizontal = 16.dp, vertical = 12.dp)
                         .widthIn(min = (screenWith * 0.4).dp, max = (screenWith * 0.618).dp)
                 ) {
-                    if (message.type == CXToastType.loading) {
+                    if (message.type == CCToastType.loading) {
                         CircularProgressIndicator(
                             modifier = Modifier.size(13.dp),
-                            color = CXColor.f1.copy(0.8f),
+                            color = CCColor.f1.copy(0.8f),
                             strokeWidth = 2.dp
                         )
                         Spacer(modifier = Modifier.width(5.dp))
                     }
                     Text(
                         text = message.text,
-                        style = CXFont.f2b.v1.color(message.type.tintColor),
+                        style = CCFont.f2b.v1.color(message.type.tintColor),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
@@ -111,7 +111,7 @@ fun CXInfoBar(
     }
 }
 
-enum class CXToastType {
+enum class CCToastType {
     success,
     info,
     warning,
@@ -122,17 +122,17 @@ enum class CXToastType {
     val tintColor
         @Composable
         get() = when (this) {
-            success -> CXColor.f1
-            info -> CXColor.f1
-            warning -> CXColor.f2
-            error -> CXColor.error
-            loading -> CXColor.f1
+            success -> CCColor.f1
+            info -> CCColor.f1
+            warning -> CCColor.f2
+            error -> CCColor.error
+            loading -> CCColor.f1
         }
 }
 
-data class CXInfoBarMessage(
+data class CCInfoBarMessage(
     val text: String = "",
-    val type: CXToastType = CXToastType.info,
+    val type: CCToastType = CCToastType.info,
 //    val id: String = UUID.randomUUID().toString(),
 )
 
@@ -141,7 +141,7 @@ data class CXInfoBarMessage(
 @Composable
 private fun Preview() {
     PreviewScreen {}
-    CXInfoBar(message = CXInfoBarMessage("网络异常，请检查网络设置", CXToastType.error)) {
+    CCInfoBar(message = CCInfoBarMessage("网络异常，请检查网络设置", CCToastType.error)) {
 
     }
 }

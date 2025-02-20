@@ -17,14 +17,14 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fantasy.components.base.BasePaginationViewModel
 import com.fantasy.components.base.LoadPageState
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 
 
 /**
  * 默认footer
  */
 @Composable
-fun CXRefreshFooter(vm: BasePaginationViewModel<*>) {
+fun CCRefreshFooter(vm: BasePaginationViewModel<*>) {
     when (vm.loadState) {
         LoadPageState.loading -> {
             if (!vm.isFirstLoading) {
@@ -52,7 +52,7 @@ fun LoadingItem() {
         CircularProgressIndicator(
             modifier = Modifier
                 .size(16.dp),
-            color = CXColor.f2.copy(0.6f),
+            color = CCColor.f2.copy(0.6f),
             strokeWidth = 2.dp
         )
 
@@ -60,7 +60,7 @@ fun LoadingItem() {
         Text(
             text = "加载中...",
             fontSize = 14.sp,
-            color = CXColor.f2.copy(0.7f),
+            color = CCColor.f2.copy(0.7f),
         )
     }
 }

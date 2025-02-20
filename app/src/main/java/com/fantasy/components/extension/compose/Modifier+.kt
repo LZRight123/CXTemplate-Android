@@ -28,7 +28,7 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.blankj.utilcode.util.KeyboardUtils
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.canBlur
 import com.fantasy.components.tools.isDebugBuilder
 import com.fantasy.components.tools.Apphelper
@@ -133,7 +133,7 @@ fun Modifier.debugClickable(
 fun Modifier.addShadow(
     elevation: Dp = 4.dp,
     corner: Dp = 11.9.dp,
-    color: Color = CXColor.f1.copy(0.5f),
+    color: Color = CCColor.f1.copy(0.5f),
     repeat: Int = 1,
 ) = composed {
     (1..repeat).fold(this) { m, _ ->
@@ -152,13 +152,13 @@ fun Modifier.addShadow(
 fun Modifier.addCardBack(
     elevation: Int = 4,
     cornerRadius: Dp = 18.dp,
-    backgroundColor: Color = CXColor.b1,
+    backgroundColor: Color = CCColor.b1,
     addBorder: Boolean = false,
 ) = composed {
     addShadow(elevation = elevation.dp, corner = cornerRadius)
         .then(
             if (addBorder)
-                Modifier.border(0.3.dp, CXColor.f1.copy(0.3f), RoundedCornerShape(cornerRadius))
+                Modifier.border(0.3.dp, CCColor.f1.copy(0.3f), RoundedCornerShape(cornerRadius))
             else Modifier
         )
         .clip(RoundedCornerShape(cornerRadius))
@@ -170,16 +170,16 @@ fun Modifier.addCardBack(
 fun Modifier.addCardBackInB1(
     elevation: Dp = 4.dp,
     cornerRadius: Dp = 11.9.dp,
-    backgroundColor: Color = CXColor.b1,
+    backgroundColor: Color = CCColor.b1,
 ) = composed {
-    addShadow(elevation = elevation, corner = cornerRadius, color = CXColor.f1.copy(0.7f))
+    addShadow(elevation = elevation, corner = cornerRadius, color = CCColor.f1.copy(0.7f))
         .background(backgroundColor, RoundedCornerShape(cornerRadius))
 }
 
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 @Composable
 fun Modifier.addTagBack(
-    backgroundColor: Color = CXColor.b1,
+    backgroundColor: Color = CCColor.b1,
     cornerRadius: Dp = 8.dp,
 ) = composed {
     clip(RoundedCornerShape(cornerRadius))
@@ -204,4 +204,4 @@ fun Modifier.addHazeOver(
 //    progressive = HazeProgressive.verticalGradient(startIntensity = 1f, endIntensity = 0f)
 }
 
-fun Modifier.cxBlur(radius: Dp) = if (canBlur) Modifier.blur(radius = radius) else this
+fun Modifier.ccBlur(radius: Dp) = if (canBlur) Modifier.blur(radius = radius) else this

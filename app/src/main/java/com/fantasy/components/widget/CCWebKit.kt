@@ -20,11 +20,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.google.accompanist.web.*
 
 @Composable
-fun CXWebKit(
+fun CCWebKit(
     state: WebViewState,
     modifier: Modifier = Modifier.fillMaxSize(),
     captureBackPresses: Boolean = true,
@@ -50,15 +50,15 @@ fun CXWebKit(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(3.dp),
-                color = CXColor.f1,
-                trackColor = CXColor.b1
+                color = CCColor.f1,
+                trackColor = CCColor.b1
             )
         }
 
         WebView(
             state = state,
             modifier = Modifier
-                .background(CXColor.b1)
+                .background(CCColor.b1)
                 .fillMaxWidth()
                 .weight(1f),
             captureBackPresses = captureBackPresses,
@@ -73,7 +73,7 @@ fun CXWebKit(
 @Preview
 @Composable
 private fun Preview() {
-    CXWebKit(rememberWebViewState(url = "https://liangmc.com"))
+    CCWebKit(rememberWebViewState(url = "https://liangmc.com"))
 }
 
 

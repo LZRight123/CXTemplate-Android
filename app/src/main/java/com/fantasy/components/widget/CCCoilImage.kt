@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.request.ImageRequest
 import com.fantasy.components.extension.mockImage
-import com.fantasy.components.theme.CXColor
+import com.fantasy.components.theme.CCColor
 import com.skydoves.landscapist.ImageOptions
 import com.skydoves.landscapist.animation.crossfade.CrossfadePlugin
 import com.skydoves.landscapist.coil3.CoilImage
@@ -37,7 +37,7 @@ import com.skydoves.landscapist.plugins.ImagePlugin
  */
 // https://github.com/skydoves/landscapist
 @Composable
-fun CXCoilImage(
+fun CCCoilImage(
     model: () -> Any?,
     modifier: Modifier = Modifier,
     imageLoadAnimation: Boolean = false,
@@ -65,7 +65,7 @@ fun CXCoilImage(
         requestListener = requestListener,
         imageOptions = imageOptions,
         onImageStateChanged = onImageStateChanged,
-        previewPlaceholder = if (previewPlaceholder == 0) ColorPainter(color = CXColor.random) else painterResource(id = previewPlaceholder),
+        previewPlaceholder = if (previewPlaceholder == 0) ColorPainter(color = CCColor.random) else painterResource(id = previewPlaceholder),
         loading = loading,
         success = success,
         failure = failure,
@@ -79,7 +79,7 @@ fun BoxScope.coilCircularLoading() {
     ) {
         CircularProgressIndicator(
             modifier = Modifier.size(18.dp),
-            color = CXColor.f3,
+            color = CCColor.f3,
             strokeWidth = 2.dp
         )
     }
@@ -122,7 +122,7 @@ data class PixelateTransformationPlugin(
 @Preview(showBackground = true)
 @Composable
 private fun Preview() {
-    CXCoilImage(
+    CCCoilImage(
         model = { mockImage },
         modifier = Modifier.size(200.dp)
     )

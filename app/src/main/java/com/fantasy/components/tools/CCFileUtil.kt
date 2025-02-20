@@ -15,7 +15,7 @@ import java.util.UUID
  * Name       : Zetra
  * GitHub     : https://github.com/zetbaitsu
  */
-internal object CXFileUtil {
+internal object CCFileUtil {
     private const val EOF = -1
     private const val DEFAULT_BUFFER_SIZE = 1024 * 4
     @Throws(IOException::class)

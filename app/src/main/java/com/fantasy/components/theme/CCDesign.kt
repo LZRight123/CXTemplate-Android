@@ -22,11 +22,11 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.fantasy.components.extension.boldBlack
-import com.fantasy.components.extension.compose.CXPaddingValues
-import com.fantasy.components.widget.CXScaffold
+import com.fantasy.components.extension.compose.CCPaddingValues
+import com.fantasy.components.widget.CCScaffold
 
 @Stable
-class CXMutableColors(
+class CCMutableColors(
     main: Color,
     f1: Color,
     f2: Color,
@@ -86,7 +86,7 @@ enum class Theme(
     ;
 }
 
-val LightColorPalette = CXMutableColors(
+val LightColorPalette = CCMutableColors(
     main = Theme.main.light,
     f1 = Theme.f1.light,
     f2 = Theme.f2.light,
@@ -99,7 +99,7 @@ val LightColorPalette = CXMutableColors(
     white = Theme.white.light,
 )
 
-val DarkColorPalette = CXMutableColors(
+val DarkColorPalette = CCMutableColors(
     main = Theme.main.dark,
     f1 = Theme.f1.dark,
     f2 = Theme.f2.dark,
@@ -122,24 +122,24 @@ CompositionLocalProvider(LocalFantasyColors provides DarkColorPalette) {
                 )
  }
  */
-val LocalCXMutableColors = compositionLocalOf { LightColorPalette }
+val LocalCCMutableColors = compositionLocalOf { LightColorPalette }
 
-val CXColor: CXMutableColors
+val CCColor: CCMutableColors
     @Composable
     @ReadOnlyComposable
-    get() = LocalCXMutableColors.current
+    get() = LocalCCMutableColors.current
 
-val CXMutableColors.sheetBackgroundColor: Color
+val CCMutableColors.sheetBackgroundColor: Color
     @Composable
     @ReadOnlyComposable
-    get() = CXColor.f1.copy(0.45f)
+    get() = CCColor.f1.copy(0.45f)
 
-object CXIndication {
+object CCIndication {
     val ripple1: Indication = ripple(color = Color.White)
 }
 
 
-enum class CXFont {
+enum class CCFont {
     big1, big1b,
     big2, big2b,
     big3, big3b,
@@ -190,36 +190,36 @@ enum class CXFont {
 @Preview(heightDp = 1600)
 @Composable
 private fun Preview2() {
-    CXScaffold(
+    CCScaffold(
         title = "设计系统-基础",
     ) { innerPadding ->
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(5.dp),
             modifier = Modifier.fillMaxSize(),
-            contentPadding = CXPaddingValues(innerPadding, all = 18.dp)
+            contentPadding = CCPaddingValues(innerPadding, all = 18.dp)
         ) {
             item {
-                Text(text = "v1 号字体", style = CXFont.big1.v1.boldBlack)
+                Text(text = "v1 号字体", style = CCFont.big1.v1.boldBlack)
             }
-            items(CXFont.entries) {
+            items(CCFont.entries) {
                 Text(text = "Hello Word - ${it.name}", style = it.v1)
             }
 
             item {
                 Text(
                     text = "v2 号字体",
-                    style = CXFont.big1.v2.boldBlack,
+                    style = CCFont.big1.v2.boldBlack,
                     modifier = Modifier.padding(top = 20.dp)
                 )
             }
-            items(CXFont.entries) {
+            items(CCFont.entries) {
                 Text(text = "Hello Word - ${it.name}", style = it.v2)
             }
 
             item {
                 Text(
                     text = "颜色",
-                    style = CXFont.big1.v2.boldBlack,
+                    style = CCFont.big1.v2.boldBlack,
                     modifier = Modifier.padding(top = 20.dp)
                 )
             }
@@ -233,7 +233,7 @@ private fun Preview2() {
                             .height(20.dp)
                             .fillMaxWidth()
                     )
-                    Text(text = it.name, style = CXFont.f1.v1)
+                    Text(text = it.name, style = CCFont.f1.v1)
                 }
             }
         }

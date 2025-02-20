@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fantasy.components.tools.cxlog
+import com.fantasy.components.tools.cclog
 import kotlinx.coroutines.launch
 
 
@@ -71,11 +71,11 @@ abstract class BaseViewModel : ViewModel() {
     var refreshing by mutableStateOf(false)
 
     init {
-        cxlog("ViewModel 创建 $this")
+        cclog("ViewModel 创建 $this")
     }
 
     override fun onCleared() {
-        cxlog("ViewModel 释放 $this")
+        cclog("ViewModel 释放 $this")
     }
 }
 

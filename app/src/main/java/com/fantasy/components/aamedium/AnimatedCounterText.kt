@@ -12,14 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import com.fantasy.components.extension.randomString
-import com.fantasy.components.theme.CXFont
+import com.fantasy.components.theme.CCFont
 import com.fantasy.components.widget.PreviewScreen
 
 @OptIn(ExperimentalLayoutApi::class)
 @Composable
 fun AnimatedCounterText(
     text: String,
-    style: TextStyle = CXFont.f1.v1,
+    style: TextStyle = CCFont.f1.v1,
     down: Boolean = true, // 默认动画从上往下
     modifier: Modifier = Modifier,
 ) {

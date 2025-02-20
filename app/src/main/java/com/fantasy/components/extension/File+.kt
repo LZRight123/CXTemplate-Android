@@ -2,7 +2,7 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.media.ExifInterface
-import com.fantasy.components.tools.CXFileUtil
+import com.fantasy.components.tools.CCFileUtil
 import java.io.File
 import java.io.FileOutputStream
 
@@ -51,7 +51,7 @@ fun File.asBitmap(
 fun Bitmap.toFile(): File? {
     try {
         // 将 Bitmap 写入临时文件
-        val file = CXFileUtil.createTmpFile()
+        val file = CCFileUtil.createTmpFile()
         val fileOutputStream = FileOutputStream(file)
         compress(Bitmap.CompressFormat.JPEG, 100, fileOutputStream)
         fileOutputStream.flush()
