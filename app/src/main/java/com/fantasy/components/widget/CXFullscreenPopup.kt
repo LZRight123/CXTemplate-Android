@@ -7,6 +7,7 @@ import android.content.ContextWrapper
 import android.view.KeyEvent
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
@@ -37,7 +38,7 @@ import java.util.UUID
 
 @Composable
 fun CXFullscreenPopup(
-    onDismiss: (() -> Unit)? = null,
+    onSystemBack: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
     val view = LocalView.current
@@ -46,7 +47,7 @@ fun CXFullscreenPopup(
     val popupId = rememberSaveable { UUID.randomUUID() }
     val popupLayout = remember {
         PopupLayout(
-            onDismiss = onDismiss,
+            onSystemBack = onSystemBack,
             composeView = view,
             popupId = popupId
         ).apply {
@@ -61,7 +62,7 @@ fun CXFullscreenPopup(
     DisposableEffect(popupLayout) {
         popupLayout.show()
         popupLayout.updateParameters(
-            onDismiss = onDismiss
+            onSystemBack = onSystemBack
         )
         onDispose {
             popupLayout.disposeComposition()
@@ -72,17 +73,18 @@ fun CXFullscreenPopup(
 
     SideEffect {
         popupLayout.updateParameters(
-            onDismiss = onDismiss
+            onSystemBack = onSystemBack
         )
     }
 }
+
 
 /**
  * The layout the popup uses to display its content.
  */
 @SuppressLint("ViewConstructor")
 private class PopupLayout(
-    private var onDismiss: (() -> Unit)?,
+    onSystemBack: (() -> Unit)?,
     composeView: View,
     popupId: UUID
 ) : AbstractComposeView(composeView.context),
@@ -104,6 +106,8 @@ private class PopupLayout(
     }
 
     private var content: @Composable () -> Unit by mutableStateOf({})
+
+    private var onSystemBackState by mutableStateOf(onSystemBack)
 
     override var shouldCreateCompositionOnAttachedToWindow: Boolean = false
         private set
@@ -128,34 +132,16 @@ private class PopupLayout(
 
     @Composable
     override fun Content() {
+        BackHandler(onSystemBackState != null) {
+            onSystemBackState?.invoke()
+        }
         content()
     }
 
-    @Suppress("ReturnCount")
-    override fun dispatchKeyEvent(event: KeyEvent): Boolean {
-        if (event.keyCode == KeyEvent.KEYCODE_BACK && onDismiss != null) {
-            if (keyDispatcherState == null) {
-                return super.dispatchKeyEvent(event)
-            }
-            if (event.action == KeyEvent.ACTION_DOWN && event.repeatCount == 0) {
-                val state = keyDispatcherState
-                state?.startTracking(event, this)
-                return true
-            } else if (event.action == KeyEvent.ACTION_UP) {
-                val state = keyDispatcherState
-                if (state != null && state.isTracking(event) && !event.isCanceled) {
-                    onDismiss?.invoke()
-                    return true
-                }
-            }
-        }
-        return super.dispatchKeyEvent(event)
-    }
-
     fun updateParameters(
-        onDismiss: (() -> Unit)?
+        onSystemBack: (() -> Unit)?
     ) {
-        this.onDismiss = onDismiss
+        onSystemBackState = onSystemBack
     }
 
     fun dismiss() {

@@ -53,115 +53,34 @@ class ImageViewerViewModel : ViewModel() {
 fun ImageViewer(
     vm: ImageViewerViewModel = viewModel()
 ) {
-    BackHandler {
-        vm.dismiss()
-    }
-    val images = remember { vm.images ?: emptyList() }
-    val pageState = rememberPagerState(vm.initialIndex) {
-        images.size
-    }
-
-    CXFullscreenPopup(
-        onDismiss = { vm.dismiss() }
+    AnimatedVisibility(
+        visible = vm.images != null,
+        enter = fadeIn(),
+        exit = fadeOut()
     ) {
-        Box(
-            modifier = Modifier
-                .background(CXColor.b1.copy(0.97f))
-                .fillMaxSize(),
-            contentAlignment = Alignment.TopCenter
-        ) {
-            val zoomState = rememberZoomableState()
-            HorizontalPager(
-                state = pageState,
-                modifier = Modifier
-                    .cxScaleIn(show = vm.images != null, duration = 250)
-                    .fillMaxSize(),
-            ) { page ->
-                if (pageState.settledPage != page) {
-                    LaunchedEffect(key1 = Unit) {
-                        zoomState.resetZoom(false)
-                    }
-                }
-                CXCoilImage(
-                    model = { images[page] },
-                    imageOptions = ImageOptions(contentScale = ContentScale.FillWidth),
-                    modifier = Modifier
-                        .zoomable(
-                            state = zoomState,
-                            onClick = {
-                                vm.dismiss()
-                            }
-                        )
-                        .fillMaxSize()
-                )
-            }
-
-            if (images.size > 1) {
-                Text(
-                    text = "${pageState.currentPage + 1}/${images.size}",
-                    style = CXFont.f1.v1.b1c,
-                    modifier = Modifier
-                        .statusBarsPadding()
-                        .padding(top = 12.dp)
-                        .background(CXColor.f1.copy(0.4f), RoundedCornerShape(8.dp))
-                        .padding(
-                            horizontal = 16.dp,
-                            vertical = 8.dp
-                        )
-
-                )
-            }
-        }
-    }
-
-}
-
-
-@Preview(showBackground = true)
-@Composable
-fun ImageViewerPreview() {
-    PreviewScreen {
-
-    }
-    val vm: ImageViewerViewModel = viewModel()
-    vm.apply { show((0..20).map { mockImage }) }
-    ImageViewer()
-}
-
-@Composable
-private fun ImageViewer2(
-    vm: ImageViewerViewModel = viewModel(),
-) {
-    vm.images?.let { images ->
         CXFullscreenPopup(
-            onDismiss = { vm.dismiss() }
+            onSystemBack = { vm.dismiss() }
         ) {
+
+            val images = remember { vm.images ?: emptyList() }
             val pageState = rememberPagerState(vm.initialIndex) {
                 images.size
             }
-            var isVisibility by remember {
-                mutableStateOf(false)
-            }
-            LaunchedEffect(Unit) {
-                isVisibility = true
-            }
-
-            AnimatedVisibility(
-                visible = isVisibility,
-                modifier = Modifier.fillMaxSize(),
-                enter = fadeIn() + scaleIn(tween(400)),
-                exit = fadeOut(tween(200)),
+            Box(
+                modifier = Modifier
+                    .background(CXColor.b1.copy(0.97f))
+                    .fillMaxSize(),
+                contentAlignment = Alignment.TopCenter
             ) {
-                Box(
-                    modifier = Modifier
-                        .background(CXColor.b1.copy(0.97f))
-                        .fillMaxSize()
-                )
                 val zoomState = rememberZoomableState()
-
                 HorizontalPager(
-                    modifier = Modifier.fillMaxSize(),
                     state = pageState,
+                    modifier = Modifier
+                        .cxScaleIn(
+                            show = vm.images != null,
+                            duration = if (vm.images != null) 300 else 100
+                        )
+                        .fillMaxSize(),
                 ) { page ->
                     if (pageState.settledPage != page) {
                         LaunchedEffect(key1 = Unit) {
@@ -175,7 +94,6 @@ private fun ImageViewer2(
                             .zoomable(
                                 state = zoomState,
                                 onClick = {
-                                    isVisibility = false
                                     vm.dismiss()
                                 }
                             )
@@ -184,29 +102,33 @@ private fun ImageViewer2(
                 }
 
                 if (images.size > 1) {
-                    Box(
+                    Text(
+                        text = "${pageState.currentPage + 1}/${images.size}",
+                        style = CXFont.f1.v1.b1c,
                         modifier = Modifier
-                            .padding(top = 12.dp)
                             .statusBarsPadding()
-                            .fillMaxSize(),
-                        contentAlignment = Alignment.TopCenter
-                    ) {
-                        Text(
-                            text = "${pageState.currentPage + 1}/${images.size}",
-                            style = CXFont.f1.v1.b1c,
-                            modifier = Modifier
-                                .background(CXColor.f1.copy(0.4f), RoundedCornerShape(8.dp))
-                                .padding(
-                                    horizontal = 16.dp,
-                                    vertical = 8.dp
-                                )
+                            .padding(top = 12.dp)
+                            .background(CXColor.f1.copy(0.4f), RoundedCornerShape(8.dp))
+                            .padding(
+                                horizontal = 16.dp,
+                                vertical = 8.dp
+                            )
 
-                        )
-                    }
+                    )
                 }
             }
-
         }
     }
+}
 
+
+@Preview(showBackground = true)
+@Composable
+fun ImageViewerPreview() {
+    PreviewScreen {
+
+    }
+    val vm: ImageViewerViewModel = viewModel()
+    vm.apply { show((0..20).map { mockImage }) }
+    ImageViewer()
 }

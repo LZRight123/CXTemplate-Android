@@ -49,7 +49,7 @@ fun CXToast(
         onVisibleChange(false)
     }
 
-    CXFullscreenPopup(onDismiss = {
+    CXFullscreenPopup(onSystemBack = {
         onVisibleChange(false)
     }) {
         AnimatedVisibility(
@@ -106,7 +106,7 @@ fun <T> CXToast(
 
         }
 
-        CXFullscreenPopup(onDismiss = {
+        CXFullscreenPopup(onSystemBack = {
             onDataChange(null)
         }) {
             AnimatedVisibility(

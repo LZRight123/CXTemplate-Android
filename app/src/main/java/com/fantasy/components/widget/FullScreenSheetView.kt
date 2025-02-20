@@ -31,7 +31,7 @@ fun FullScreenSheetView(
             mutableStateOf(true)
         }
         CXFullscreenPopup(
-            onDismiss = {
+            onSystemBack = {
                 onVisibleChange(false)
             }
         ) {
