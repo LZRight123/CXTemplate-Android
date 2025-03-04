@@ -22,6 +22,7 @@ import id.zelory.compressor.constraint.Compression
 import id.zelory.compressor.constraint.default
 import kotlinx.parcelize.Parcelize
 import java.io.File
+import java.io.Serializable
 import java.util.UUID
 
 
@@ -68,17 +69,21 @@ suspend fun Uri.compress(
 }
 
 
-fun MediaResource.toUIImage() = UIImage(origin = this)
-
+fun MediaResource.toUIImage(unique: Boolean = false) = UIImage(
+    id = if (unique) UUID.randomUUID().toString() else uri.toString(),
+    uriString = uri.toString(),
+    name = name
+)
 @Parcelize
 data class UIImage(
     val id: String = UUID.randomUUID().toString(),
-    val origin: MediaResource,
+//    val origin: MediaResource,
+    val uriString: String = "",
+    val name: String = "",
     val finalImageUrl: String? = null,
-) : Parcelable {
-    val uri get() = origin.uri
-    val path get() = origin.path ?: ""
-    val name get() = origin.name ?: ""
+) : Parcelable, Serializable {
+    val uri get() = Uri.parse(uriString)
+    val path get() = uri.path ?: ""
 
     suspend fun compress(
         config: Compression.() -> Unit = { default() }
@@ -86,15 +91,8 @@ data class UIImage(
 
     companion object {
         fun build(uri: Uri) = UIImage(
-            origin = MediaResource(
-                id = 999,
-                bucketId = "",
-                bucketName = "",
-                uri = uri,
-                path = uri.path ?: "",
-                name = uri.lastPathSegment ?: "",
-                mimeType = "image/jpeg"
-            )
+            uriString = uri.toString(),
+            name = uri.lastPathSegment ?: "",
         )
 
         val mock get() = build(Uri.parse(randomString(3)))
@@ -109,10 +107,7 @@ fun rememberLauncherUIImage(
     contract = MatisseContract()
 ) { items ->
     val result = items?.map { item ->
-        UIImage(
-            id = if (unique) UUID.randomUUID().toString() else item.uri.toString(),
-            origin = item
-        )
+        item.toUIImage(unique)
     } ?: emptyList()
     onResult(result)
 }
