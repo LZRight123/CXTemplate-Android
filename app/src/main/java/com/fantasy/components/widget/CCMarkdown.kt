@@ -16,7 +16,7 @@ import com.halilibo.richtext.ui.string.*
 
 @Composable
 fun CCMarkdown(
-    content: String,
+    text: String,
     style: TextStyle = CCFont.f1.v1.f1c,
     boldStyle: TextStyle = CCFont.f1b.v1.f1c,
     linkStyle: TextStyle = CCFont.f1b.v2.f1c,
@@ -47,7 +47,7 @@ fun CCMarkdown(
             )
         ) {
             Markdown(
-                content = content,
+                content = text,
                 markdownParseOptions = markdownParseOptions,
                 onLinkClicked = onLinkClicked
             )

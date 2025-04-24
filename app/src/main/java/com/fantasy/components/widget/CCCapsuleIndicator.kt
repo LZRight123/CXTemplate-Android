@@ -14,10 +14,11 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fantasy.components.theme.CCColor
+import com.fantasy.components.theme.sheetBackgroundColor
 
 @Composable
 fun CCCapsuleIndicator(
-    color: Color = CCColor.f3,
+    color: Color = CCColor.sheetBackgroundColor,
     modifier: Modifier = Modifier
 ) {
     Box(

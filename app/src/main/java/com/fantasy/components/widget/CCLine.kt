@@ -14,8 +14,8 @@ import com.fantasy.components.theme.CCColor
 @Composable
 fun CCHLine(
     modifier: Modifier = Modifier,
-    color: Color = CCColor.f3,
-    thickness: Dp = 0.2.dp,
+    color: Color = CCColor.f2.copy(0.2f),
+    thickness: Dp = 1.2.dp,
 ) {
     HorizontalDivider(
         modifier = modifier,
@@ -27,8 +27,8 @@ fun CCHLine(
 @Composable
 fun CCVLine(
     modifier: Modifier = Modifier,
-    color: Color = CCColor.f3,
-    thickness: Dp = 0.2.dp,
+    color: Color = CCColor.f2.copy(0.2f),
+    thickness: Dp = 1.2.dp,
 ) {
     VerticalDivider(
         modifier = modifier,

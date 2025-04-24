@@ -24,6 +24,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.layout.layout
+import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -31,10 +32,14 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.canBlur
 import com.fantasy.components.tools.isDebugBuilder
-import com.fantasy.components.tools.Apphelper
-import dev.chrisbanes.haze.HazeTint
-import dev.chrisbanes.haze.haze
-import dev.chrisbanes.haze.hazeChild
+import com.fantasy.components.tools.AppHelper
+import dev.chrisbanes.haze.HazeEffectScope
+import dev.chrisbanes.haze.HazeProgressive
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeEffect
+import dev.chrisbanes.haze.hazeSource
+import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
+import dev.chrisbanes.haze.materials.HazeMaterials
 import kotlin.math.roundToInt
 
 /**
@@ -43,10 +48,10 @@ import kotlin.math.roundToInt
  */
 @SuppressLint("ModifierFactoryUnreferencedReceiver")
 fun Modifier.fantasyClick(
-    indication: Indication? = ripple(),
+    indication: Indication? = null,
     time: Int = 1000,
     enabled: Boolean = true,
-    onClick: () -> Unit
+    onClick: () -> Unit = {}
 ): Modifier = composed {
     var lastClickTime = remember { 0L }
     clickable(
@@ -67,12 +72,39 @@ fun Modifier.fantasyClick(
 /**
  * Consumes touch events.
  */
-fun Modifier.consumeClicks() = fantasyClick(indication = null,onClick = NoOpLambda)
+fun Modifier.consumeClicks() = fantasyClick(indication = null, onClick = NoOpLambda)
 
 /**
  * Empty lambda.
  */
 val NoOpLambda: () -> Unit = {}
+
+inline fun <T : Any> Modifier.ifNotNull(value: T?, builder: (T) -> Modifier): Modifier =
+    then(if (value != null) builder(value) else Modifier)
+
+inline fun <T : Any> Modifier.ifNull(value: T?, builder: () -> Modifier): Modifier =
+    then(if (value == null) builder() else Modifier)
+
+inline fun Modifier.ifTrue(predicate: Boolean, builder: () -> Modifier) =
+    then(if (predicate) builder() else Modifier)
+
+inline fun Modifier.ifFalse(predicate: Boolean, builder: () -> Modifier) =
+    then(if (!predicate) builder() else Modifier)
+inline fun Modifier.ifDebug(builder: () -> Modifier): Modifier = ifTrue(isDebugBuilder, builder)
+
+@Composable
+inline fun Modifier.ifInPreview(builder: () -> Modifier): Modifier = ifTrue(LocalInspectionMode.current, builder)
+
+@OptIn(ExperimentalFoundationApi::class)
+fun Modifier.debugClickable(
+    onDoubleClick: () -> Unit = {},
+    onClick: () -> Unit = {},
+) =  ifTrue(isDebugBuilder) {
+    Modifier.combinedClickable(
+        onDoubleClick = onDoubleClick,
+        onClick = onClick
+    )
+}
 
 /**
  * 虚线边框
@@ -116,15 +148,7 @@ fun Modifier.clickBlankHiddenKeyboard() = composed {
     }
 }
 
-@OptIn(ExperimentalFoundationApi::class)
-@SuppressLint("ModifierFactoryUnreferencedReceiver")
-fun Modifier.debugClickable(
-    onDoubleClick: () -> Unit = {},
-    onClick: () -> Unit = {},
-) = if (isDebugBuilder) Modifier.combinedClickable(
-    onDoubleClick = onDoubleClick,
-    onClick = onClick
-) else Modifier
+
 
 
 
@@ -188,18 +212,27 @@ fun Modifier.addTagBack(
 }
 
 @Composable
-fun Modifier.addHazeContent() = Modifier.haze(Apphelper.hazeState)
+fun Modifier.addHazeContent(state: HazeState = AppHelper.hazeState) = Modifier.hazeSource(state)
 
 // https://chrisbanes.github.io/haze/usage/
+@OptIn(ExperimentalHazeMaterialsApi::class)
 @Composable
 fun Modifier.addHazeOver(
-    color: Color,
-) = Modifier.hazeChild(
-    state = Apphelper.hazeState,
+    color: Color = CCColor.b2,
+    state: HazeState = AppHelper.hazeState,
+    block: (HazeEffectScope.() -> Unit)? = null,
+) = Modifier.hazeEffect(
+    state = state,
+    style = HazeMaterials.thin(containerColor = color)
 ) {
-    backgroundColor = color
-    blurRadius = 10.dp
-    fallbackTint = HazeTint(color = color)
+//    backgroundColor = color
+    if (block == null) {
+        blurRadius = 15.dp
+        progressive = HazeProgressive.verticalGradient(startIntensity = 1f, endIntensity = 0f)
+    } else {
+        block()
+    }
+//    fallbackTint = HazeTint(color = color)
 //    inputScale = HazeInputScale.Auto
 //    progressive = HazeProgressive.verticalGradient(startIntensity = 1f, endIntensity = 0f)
 }

@@ -6,19 +6,21 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.unit.Density
+import com.fantasy.components.extension.ccShimmerTheme
+import com.valentinilk.shimmer.LocalShimmerTheme
 
 
 @Composable
 fun CCTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
     content: @Composable () -> Unit
 ) {
-    val colors = if (isSystemInDarkTheme()) DarkColorPalette  else  LightColorPalette
+    val colors = if (darkTheme) DarkColorPalette else LightColorPalette
     CompositionLocalProvider(
         LocalCCMutableColors provides colors,
         LocalContentColor provides CCColor.f1,
-        LocalDensity provides Density(LocalDensity.current.density,
-            fontScale = 1f
-        ),
+        LocalDensity provides Density(LocalDensity.current.density, fontScale = 1f),
+        LocalShimmerTheme provides ccShimmerTheme,
     ) {
         val materialColors = MaterialTheme.colorScheme.copy(
             surface = CCColor.b1, // surface 背景
@@ -32,7 +34,7 @@ fun CCTheme(
             errorContainer = CCColor.error,
             error = CCColor.error,
 
-        )
+            )
 
         MaterialTheme(
             colorScheme = materialColors,

@@ -7,13 +7,10 @@ import android.provider.OpenableColumns
 import android.util.Log
 import java.io.*
 import java.util.UUID
-
+import kotlin.uuid.Uuid
 
 /**
- * Created on : June 18, 2016
- * Author     : zetbaitsu
- * Name       : Zetra
- * GitHub     : https://github.com/zetbaitsu
+ * Created on : June 18, 2016 Author : zetbaitsu Name : Zetra GitHub : https://github.com/zetbaitsu
  */
 internal object CCFileUtil {
     private const val EOF = -1
@@ -23,21 +20,44 @@ internal object CCFileUtil {
         val inputStream = context.contentResolver.openInputStream(uri)
         val fileName = getFileName(context, uri)
         val splitName = splitFileName(fileName)
-        var tempFile = File.createTempFile(splitName[0], splitName[1])
-        tempFile = rename(tempFile, fileName)
-        tempFile.deleteOnExit()
-        var out: FileOutputStream? = null
+        val suffix = UUID.randomUUID().toString().takeLast(12)
+
         try {
-            out = FileOutputStream(tempFile)
-        } catch (e: FileNotFoundException) {
-            e.printStackTrace()
+            val tempFile = File.createTempFile(splitName[0], suffix)
+            tempFile.deleteOnExit()
+            var out: FileOutputStream? = null
+            try {
+                out = FileOutputStream(tempFile)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            }
+            if (inputStream != null) {
+                copy(inputStream, out)
+                inputStream.close()
+            }
+            out?.close()
+            return tempFile
+        } catch (e: Exception) {
+            Log.e(
+                    "CCFileUtil",
+                    "Error creating temp file: ${e.message}, fileName=$fileName, prefix=${splitName[0]}, suffix=${splitName[1]}"
+            )
+            // 创建一个备用的临时文件
+            val backupTempFile = File.createTempFile("backup", ".tmp")
+            backupTempFile.deleteOnExit()
+            var out: FileOutputStream? = null
+            try {
+                out = FileOutputStream(backupTempFile)
+            } catch (e: FileNotFoundException) {
+                e.printStackTrace()
+            }
+            if (inputStream != null) {
+                copy(inputStream, out)
+                inputStream.close()
+            }
+            out?.close()
+            return backupTempFile
         }
-        if (inputStream != null) {
-            copy(inputStream, out)
-            inputStream.close()
-        }
-        out?.close()
-        return tempFile
     }
 
     private fun splitFileName(fileName: String?): Array<String?> {
@@ -48,6 +68,12 @@ internal object CCFileUtil {
             name = fileName.substring(0, i)
             extension = fileName.substring(i)
         }
+
+        // 确保文件名前缀至少有3个字符，这是File.createTempFile的要求
+        if (name.isNullOrEmpty() || name.length < 3) {
+            name = "tmp" + (name ?: "")
+        }
+
         return arrayOf(name, extension)
     }
 

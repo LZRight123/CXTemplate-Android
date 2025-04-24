@@ -4,7 +4,7 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.focus.FocusManager
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.SoftwareKeyboardController
-import com.fantasy.components.tools.localDelay
+import kotlinx.coroutines.delay
 
 /**
  * 在 Composable 传 LocalSoftwareKeyboardController.current
@@ -13,7 +13,7 @@ suspend fun FocusRequester.registerFirstResponse(
     keyboard: SoftwareKeyboardController? = null,
     delayMillis: Long = 50
 ) {
-    localDelay(delayMillis)
+    delay(delayMillis)
     keyboard?.show()
     requestFocus()
 }

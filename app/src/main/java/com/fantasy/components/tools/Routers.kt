@@ -31,7 +31,7 @@ fun routeToShare(
  */
 fun openAppDetail() {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-    intent.data = Uri.parse("package:" + AppUtils.getAppPackageName())
+    intent.data = Uri.parse("package:" + getContext.packageName)
     ActivityUtils.getTopActivity()?.startActivity(intent)
 }
 
@@ -76,6 +76,14 @@ fun joinQQGroup() {
 //        intent.data = Uri.parse(url)
 //        ActivityUtils.getTopActivity()?.startActivity(intent)
 //    } else {
-//        Apphelper.toast(R.string.k0112.local() )
+//        AppHelper.toast(R.string.k0112.local() )
 //    }
+}
+
+fun openAppNotificationSettings(context: Context = getContext) {
+    val intent = Intent().apply {
+        action = Settings.ACTION_APP_NOTIFICATION_SETTINGS
+        putExtra(Settings.EXTRA_APP_PACKAGE, context.packageName)
+    }
+    ActivityUtils.getTopActivity()?.startActivity(intent)
 }

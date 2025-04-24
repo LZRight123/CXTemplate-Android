@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionContext
 import androidx.compose.runtime.DisposableEffect
@@ -34,6 +35,7 @@ import androidx.lifecycle.setViewTreeLifecycleOwner
 import androidx.lifecycle.setViewTreeViewModelStoreOwner
 import androidx.savedstate.findViewTreeSavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
+import com.fantasy.components.tools.inPreview
 import java.util.UUID
 
 @Composable
@@ -41,6 +43,12 @@ fun CCFullscreenPopup(
     onSystemBack: (() -> Unit)? = null,
     content: @Composable () -> Unit
 ) {
+    if (inPreview) {
+        Box(Modifier.fillMaxSize()) {
+            content()
+        }
+        return
+    }
     val view = LocalView.current
     val parentComposition = rememberCompositionContext()
     val currentContent by rememberUpdatedState(content)

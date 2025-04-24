@@ -20,6 +20,7 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.fantasy.components.extension.f1c
 import com.fantasy.components.theme.CCColor
@@ -28,7 +29,7 @@ import com.fantasy.components.theme.CCFont
 
 @Composable
 fun CCTextFiled(
-    value: String,
+    value: String?,
     placeholder: String = "请输入...",
     textStyle: TextStyle = CCFont.f1.v1.f1c,
     placeholderStyle: TextStyle = textStyle.copy(color = CCColor.f1.copy(alpha = 0.3f)),
@@ -50,7 +51,8 @@ fun CCTextFiled(
     onTextLayout: (TextLayoutResult) -> Unit = {},
     onValueChange: (String) -> Unit,
 ) {
-    BasicTextField(value = value,
+    BasicTextField(
+        value = value ?: "",
         modifier = modifier,
         onValueChange = onValueChange,
         enabled = enabled,
@@ -83,13 +85,16 @@ fun CCTextFiled(
                 ) {
                     Row {
                         AnimatedVisibility(
-                            visible = value.isEmpty(),
+                            visible = value.isNullOrEmpty(),
                             enter = fadeIn(),
-                            exit = fadeOut(
-                                tween(100)
-                            )
+                            exit = fadeOut(tween(20))
                         ) {
-                            Text(text = placeholder, style = placeholderStyle)
+                            Text(
+                                text = placeholder,
+                                style = placeholderStyle,
+                                maxLines = 1,
+                                overflow = TextOverflow.Ellipsis
+                            )
                         }
                     }
                     innerTextField()

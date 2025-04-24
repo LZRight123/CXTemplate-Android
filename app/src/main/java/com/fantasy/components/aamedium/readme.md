@@ -21,7 +21,7 @@
 11. [网络状态hook](https://github.com/CuriousNikhil/compose-hooks)
 12. [shimmer](https://github.com/valentinilk/compose-shimmer)
 13. [创意实验室](https://github.com/manuel-martos/creative-lab)
-14. [拟物效果](https://translate.google.com.hk/?hl=zh-CN&sourceid=cnhp&sl=en&tl=zh-CN&text=Neumorphism&op=translate)
+14. [Inner Shadow](https://medium.com/@kappdev/inner-shadow-in-jetpack-compose-d80dcd56f6cf)
 
 ##### ytb 视频
 1. [共享元素](// https://www.youtube.com/watch?v=PR6rz1QUkAM&t=399s)

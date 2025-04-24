@@ -1,116 +1,127 @@
 package com.fantasy.components.theme
 
 import androidx.compose.foundation.Indication
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
 import androidx.compose.material3.ripple
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.ReadOnlyComposable
+import androidx.compose.runtime.Stable
+import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.font.Font
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.fantasy.cctemplate.R
 import com.fantasy.components.extension.boldBlack
 import com.fantasy.components.extension.compose.CCPaddingValues
+import com.fantasy.components.extension.size
 import com.fantasy.components.widget.CCScaffold
+import kotlin.random.Random
 
-@Stable
-class CCMutableColors(
-    main: Color,
-    f1: Color,
-    f2: Color,
-    f3: Color,
-    b1: Color,
-    b2: Color,
-    b3: Color,
-    error: Color,
-    black: Color,
-    white: Color,
-) {
-    var main: Color by mutableStateOf(main)
-        private set
-    var f1: Color by mutableStateOf(f1)
-        private set
-    var f2: Color by mutableStateOf(f2)
-        private set
-    var f3: Color by mutableStateOf(f3)
-        private set
-    var b1: Color by mutableStateOf(b1)
-        private set
-    var b2: Color by mutableStateOf(b2)
-        private set
-    var b3: Color by mutableStateOf(b3)
-        private set
-    var error: Color by mutableStateOf(error)
-        private set
-    var black: Color by mutableStateOf(black)
-        private set
-    var white: Color by mutableStateOf(white)
-        private set
-
-    val random: Color
-        get() = Color(
-            kotlin.random.Random.nextFloat().coerceIn(0f, 255f),
-            kotlin.random.Random.nextFloat().coerceIn(0f, 255f),
-            kotlin.random.Random.nextFloat().coerceIn(0f, 255f),
+val Color.Companion.random
+    get() =
+        Color(
+            Random.nextFloat().coerceIn(0f, 255f),
+            Random.nextFloat().coerceIn(0f, 255f),
+            Random.nextFloat().coerceIn(0f, 255f),
             1f
         )
 
-}
-
-enum class Theme(
-    val light: Color,
-    val dark: Color
+@Stable
+class CCMutableColors(
+    val main: Color,
+    // 常规前景色
+    val f1: Color,
+    val f2: Color,
+    val f3: Color,
+    // 主题前景色
+    val f2_t: Color,
+    // 常规背景色
+    val b1: Color,
+    val b2: Color,
+    val b3: Color,
+    // 主题背景色
+    val b1_t: Color,
+    val b2_t: Color,
+    val b3_t: Color,
+    // 主题彩色
+    val pink_t: Color,
+    val green_t: Color,
+    val blue_t: Color,
+    val red_t: Color,
+    val error: Color,
+    val black: Color,
+    val white: Color,
 ) {
-    main(light = Color(0xFF6735C0), dark = Color(0xFFFFFFFF)),
-    f1(light = Color(0xFF212121), dark = Color(0xFFFCFCFC)),
-    f2(light = Color(0xFF7C7C7C), dark = Color(0xFFB3B3B3)),
-    f3(light = Color(0xFFCECECE), dark = Color(0xFF8B8B8B)),
-    b1(light = Color(0xFFFFFFFF), dark = Color(0xFF202020)),
-    b2(light = Color(0xFFF8F8F8), dark = Color(0xFF0D0D0D)),
-    b3(light = Color(0xFFD7D7D7), dark = Color(0xFF000000)),
-    error(light = Color(0xFFFF4040), dark = Color(0xFFFFFFFF)),
-    black(light = Color(0xFF000000), dark = Color(0xFFFFFFFF)),
-    white(light = Color(0xFFFFFFFF), dark = Color(0xFFFFFFFF)),
-    ;
+    //    var main: Color by mutableStateOf(main)
+    //        private set
+    //    var f1: Color by mutableStateOf(f1)
+    //        private set
+    //    var f2: Color by mutableStateOf(f2)
+    //        private set
+    //    var f3: Color by mutableStateOf(f3)
+    //        private set
+    //    var b1: Color by mutableStateOf(b1)
+    //        private set
+    //    var b2: Color by mutableStateOf(b2)
+    //        private set
+    //    var b3: Color by mutableStateOf(b3)
+    //        private set
+    //    var error: Color by mutableStateOf(error)
+    //        private set
+    //    var black: Color by mutableStateOf(black)
+    //        private set
+    //    var white: Color by mutableStateOf(white)
+    //        private set
+    //    var pink: Color by mutableStateOf(pink)
+    //        private set
+
+    val random: Color
+        get() =
+            Color(
+                Random.nextFloat().coerceIn(0f, 255f),
+                Random.nextFloat().coerceIn(0f, 255f),
+                Random.nextFloat().coerceIn(0f, 255f),
+                1f
+            )
 }
 
-val LightColorPalette = CCMutableColors(
-    main = Theme.main.light,
-    f1 = Theme.f1.light,
-    f2 = Theme.f2.light,
-    f3 = Theme.f3.light,
-    b1 = Theme.b1.light,
-    b2 = Theme.b2.light,
-    b3 = Theme.b3.light,
-    error = Theme.error.light,
-    black = Theme.black.light,
-    white = Theme.white.light,
-)
+val LightColorPalette =
+    CCMutableColors(
+        main = Color(0xFF6735C0),
+        // 常规前景色
+        f1 = Color(0xFF0E0808),
+        f2 = Color(0xFF676363),
+        f3 = Color(0xFF97918B),
+        // 主题前景色
+        f2_t = Color(0xFF463130),
+        // 常规背景色
+        b1 = Color(0xFFFAF9F9),
+        b2 = Color(0xFFF1F0F1),
+        b3 = Color(0xFFECEAE1),
+        // 主题背景色
+        b1_t = Color(0xFFFAF7F5),
+        b2_t = Color(0xFFEFEAE7),
+        b3_t = Color(0xFFE8E1DD),
+        // 主题彩色
+        pink_t = Color(0xFFC73D66),
+        green_t = Color(0xFFBAE800),
+        blue_t = Color(0xFF323FD0),
+        red_t = Color(0xFFF24016),
+        error = Color(0xFFF24016),
+        black = Color(0xFF000000),
+        white = Color(0xFFFFFFFF),
+    )
 
-val DarkColorPalette = CCMutableColors(
-    main = Theme.main.dark,
-    f1 = Theme.f1.dark,
-    f2 = Theme.f2.dark,
-    f3 = Theme.f3.dark,
-    b1 = Theme.b1.dark,
-    b2 = Theme.b2.dark,
-    b3 = Theme.b3.dark,
-    error = Theme.error.dark,
-    black = Theme.black.dark,
-    white = Theme.white.dark,
-)
+val DarkColorPalette = LightColorPalette
 
 /*
 使用 provides 后，在此作用域下 LocalFantasyMutableColors.current 会变成指定的值
@@ -124,86 +135,101 @@ CompositionLocalProvider(LocalFantasyColors provides DarkColorPalette) {
  */
 val LocalCCMutableColors = compositionLocalOf { LightColorPalette }
 
-val CCColor: CCMutableColors
-    @Composable
-    @ReadOnlyComposable
-    get() = LocalCCMutableColors.current
+val CCColor: CCMutableColors = LightColorPalette
+//    @Composable @ReadOnlyComposable get() = LocalCCMutableColors.current
 
 val CCMutableColors.sheetBackgroundColor: Color
-    @Composable
-    @ReadOnlyComposable
-    get() = CCColor.f1.copy(0.45f)
+    @Composable @ReadOnlyComposable get() = CCColor.f1.copy(0.1f)
 
 object CCIndication {
     val ripple1: Indication = ripple(color = Color.White)
 }
 
-
 enum class CCFont {
-    big1, big1b,
-    big2, big2b,
-    big3, big3b,
-    f1, f1b,
-    f2, f2b,
-    f3, f3b,
+    big1,
+    big2,
+    big3,
+    big1b,
+    big2b,
+    big3b,
+    f1,
+    f2,
+    f3,
+    f4,
+    f1b,
+    f2b,
+    f3b,
+    f4b,
     ;
 
-    private val big1sp = 32.sp
-    private val big2sp = 24.sp
-    private val big3sp = 20.sp
-    private val f1sp = 17.sp
-    private val f2sp = 15.sp
-    private val f3sp = 13.sp
-    val v1: TextStyle
-        get() = when (this) {
-            big1 -> TextStyle(fontSize = big1sp)
-            big2 -> TextStyle(fontSize = big2sp)
-            big3 -> TextStyle(fontSize = big3sp)
-            big1b -> TextStyle(fontSize = big1sp, fontWeight = FontWeight.SemiBold)
-            big2b -> TextStyle(fontSize = big2sp, fontWeight = FontWeight.SemiBold)
-            big3b -> TextStyle(fontSize = big3sp, fontWeight = FontWeight.SemiBold)
-            f1 -> TextStyle(fontSize = f1sp)
-            f2 -> TextStyle(fontSize = f2sp)
-            f3 -> TextStyle(fontSize = f3sp)
-            f1b -> TextStyle(fontSize = f1sp, fontWeight = FontWeight.SemiBold)
-            f2b -> TextStyle(fontSize = f2sp, fontWeight = FontWeight.SemiBold)
-            f3b -> TextStyle(fontSize = f3sp, fontWeight = FontWeight.SemiBold)
-        }
-    val v2: TextStyle
-        get() = when (this) {
-            big1 -> TextStyle(fontSize = big1sp)
-            big2 -> TextStyle(fontSize = big2sp)
-            big3 -> TextStyle(fontSize = big3sp)
-            big1b -> TextStyle(fontSize = big1sp, fontWeight = FontWeight.SemiBold)
-            big2b -> TextStyle(fontSize = big2sp, fontWeight = FontWeight.SemiBold)
-            big3b -> TextStyle(fontSize = big3sp, fontWeight = FontWeight.SemiBold)
-            f1 -> TextStyle(fontSize = f1sp)
-            f2 -> TextStyle(fontSize = f2sp)
-            f3 -> TextStyle(fontSize = f3sp)
-            f1b -> TextStyle(fontSize = f1sp, fontWeight = FontWeight.SemiBold)
-            f2b -> TextStyle(fontSize = f2sp, fontWeight = FontWeight.SemiBold)
-            f3b -> TextStyle(fontSize = f3sp, fontWeight = FontWeight.SemiBold)
-        }
-}
+    companion object {
+        //        fun custom(name: Int = R.font.maplemono_cn_extralight) =
+        // custom(FontFamily(Font(resId = name)))
+        fun custom(fontFamily: FontFamily) = TextStyle(fontFamily = fontFamily)
+    }
 
+
+    private val v1L = FontFamily(Font(resId = R.font.firasansextracondensed_light))
+    private val v1B = FontFamily(Font(resId = R.font.firasansextracondensed_semibold))
+    private val v2L = FontFamily(Font(resId = R.font.maplemono_cn_extralight))
+    private val v2B = FontFamily(Font(resId = R.font.maplemono_cn_semibold))
+
+    private val big1sp = 28
+    private val big2sp = 26
+    private val big3sp = 24
+    private val f1sp = 17
+    private val f2sp = 15
+    private val f3sp = 13
+    private val f4sp = 11
+    val v1: TextStyle
+        get() =
+            when (this) {
+                big1 -> TextStyle().size(big1sp)
+                big2 -> TextStyle().size(big2sp)
+                big3 -> TextStyle().size(big3sp)
+                big1b -> TextStyle().size(big1sp)
+                big2b -> TextStyle().size(big2sp)
+                big3b -> TextStyle().size(big3sp)
+                f1 -> TextStyle().size(f1sp)
+                f2 -> TextStyle().size(f2sp)
+                f3 -> TextStyle().size(f3sp)
+                f4 -> TextStyle().size(f4sp)
+                f1b -> TextStyle().size(f1sp)
+                f2b -> TextStyle().size(f2sp)
+                f3b -> TextStyle().size(f3sp)
+                f4b -> TextStyle().size(f4sp)
+            }
+    val v2: TextStyle
+        get() =
+            when (this) {
+                big1 -> custom(v2L).size(big1sp)
+                big2 -> custom(v2L).size(big2sp)
+                big3 -> custom(v2L).size(big3sp)
+                big1b -> custom(v2B).size(big1sp)
+                big2b -> custom(v2B).size(big2sp)
+                big3b -> custom(v2B).size(big3sp)
+                f1 -> custom(v2L).size(f1sp)
+                f2 -> custom(v2L).size(f2sp)
+                f3 -> custom(v2L).size(f3sp)
+                f4 -> custom(v2L).size(f4sp)
+                f1b -> custom(v2B).size(f1sp)
+                f2b -> custom(v2B).size(f2sp)
+                f3b -> custom(v2B).size(f3sp)
+                f4b -> custom(v2B).size(f4sp)
+            }
+}
 
 @Preview(heightDp = 1600)
 @Composable
 private fun Preview2() {
-    CCScaffold(
-        title = "设计系统-基础",
-    ) { innerPadding ->
+    CCScaffold() { innerPadding ->
         LazyColumn(
             verticalArrangement = Arrangement.spacedBy(5.dp),
             modifier = Modifier.fillMaxSize(),
             contentPadding = CCPaddingValues(innerPadding, all = 18.dp)
         ) {
-            item {
-                Text(text = "v1 号字体", style = CCFont.big1.v1.boldBlack)
-            }
-            items(CCFont.entries) {
-                Text(text = "Hello Word - ${it.name}", style = it.v1)
-            }
+            item { Text(text = "v1 号字体", style = CCFont.big1.v1.boldBlack) }
+            items(CCFont.entries) { Text(text = "Hello Word - ${it.name}", style = it.v1) }
 
             item {
                 Text(
@@ -212,9 +238,7 @@ private fun Preview2() {
                     modifier = Modifier.padding(top = 20.dp)
                 )
             }
-            items(CCFont.entries) {
-                Text(text = "Hello Word - ${it.name}", style = it.v2)
-            }
+            items(CCFont.entries) { Text(text = "Hello Word - ${it.name}", style = it.v2) }
 
             item {
                 Text(
@@ -222,19 +246,6 @@ private fun Preview2() {
                     style = CCFont.big1.v2.boldBlack,
                     modifier = Modifier.padding(top = 20.dp)
                 )
-            }
-            items(Theme.entries) {
-                Column(
-                    verticalArrangement = Arrangement.spacedBy(10.dp),
-                ) {
-                    Box(
-                        modifier = Modifier
-                            .background(it.light)
-                            .height(20.dp)
-                            .fillMaxWidth()
-                    )
-                    Text(text = it.name, style = CCFont.f1.v1)
-                }
             }
         }
     }

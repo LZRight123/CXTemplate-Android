@@ -1,33 +1,29 @@
 package com.fantasy.components.network
 
 import androidx.annotation.Keep
+import kotlinx.serialization.Serializable
 
 
 //@JsonClass(generateAdapter = true)
 @Keep
+@Serializable
 data class NetworkResponse<T>(
     val code: Int? = null,
 //    val msg: String = "",
     val message: String = "",
     val data: T? = null,
-    val page: Page? = null,
+    @kotlinx.serialization.Transient
     val throwable: Throwable? = null,
 ) {
+    @Keep
     data class ErrorBody(
         val message: String = "",
         val code: Int? = null,
     )
 
-    val isSuccess get() = code == 200
+    val is200Ok get() = code == 200
     val isError: Boolean get() = throwable != null
-    val isFailure get() = !isError && !isSuccess
-
-    data class Page(
-        val total: Int, //": 0,
-        val pageIndex: Int, //": 0,
-        val pageSize: Int, //": 0,
-        val pageCount: Int, //": 0
-    )
+    val isFailure get() = !isError && !is200Ok
 
     val responseCode: NetworkResponseCode
         get() = when (code) {

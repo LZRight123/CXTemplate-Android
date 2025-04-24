@@ -4,26 +4,19 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.RepeatMode
 import androidx.compose.animation.core.infiniteRepeatable
 import androidx.compose.animation.core.tween
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.fantasy.components.theme.CCColor
 import com.valentinilk.shimmer.ShimmerBounds
 import com.valentinilk.shimmer.defaultShimmerTheme
 import com.valentinilk.shimmer.rememberShimmer
 import com.valentinilk.shimmer.shimmer
 
 
-fun Modifier.ccshimmer(
-    duration: Int = 600,
-): Modifier = composed {
-    val shimmer = rememberShimmer(
-        shimmerBounds = ShimmerBounds.View,
-        theme = createCustomTheme(duration),
-    )
-    shimmer(customShimmer = shimmer)
-}
 
 private fun createCustomTheme(duration: Int) = defaultShimmerTheme.copy(
     animationSpec = infiniteRepeatable(
@@ -41,16 +34,18 @@ private fun createCustomTheme(duration: Int) = defaultShimmerTheme.copy(
         Color.Unspecified.copy(alpha = 1.0f),
     ),
     shaderColorStops = null,
-    shimmerWidth = 200.dp,
+    shimmerWidth = 1000.dp,
 )
 
 /**
 CompositionLocalProvider(
-LocalShimmerTheme provides lakeCardTheme,
+LocalShimmerTheme provides ccShimmerTheme,
 ) {
 
 }
 */
+val ccShimmerTheme = createCustomTheme(1000)
+
 val lakeCardTheme = defaultShimmerTheme.copy(
     animationSpec = infiniteRepeatable(
         animation = tween(

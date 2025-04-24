@@ -1,38 +1,43 @@
 [versions]
 # https://developer.android.com/build/releases/gradle-plugin
-agp = "8.7.3"
+agp = "8.9.2"
 # https://kotlinlang.org/docs/releases.html#release-details
 kotlin = "2.1.0"
 # https://developer.android.com/jetpack/compose/bom/bom-mapping
-composeBom = "2024.11.00"
-activityCompose = "1.9.3"
+composeBom = "2025.04.01"
+activityCompose = "1.10.1"
 # https://developer.android.com/jetpack/androidx/releases/core
-coreKtx = "1.15.0"
+coreKtx = "1.16.0"
 # 版本查看 https://github.com/google/ksp/releases
 ksp = "2.1.0-1.0.29"
+# https://developer.android.com/google/play/billing/integrate?hl=zh-cn
+billing="7.1.1"
+gms = "4.4.2"
 # 三方库
+ktor = "3.1.2"
+kotlinx-serialization = "1.8.0"
+kotlinx-datetime = "0.6.2"
+supabase-bom = "3.1.4"
 koin = "3.5.6"
-mmkv = "1.3.7"
-kaHelpers = "4.1.1"
-accompanis = "0.34.0"
+mmkv = "2.1.0"
+accompanist = "0.34.0"
 zoomable = "0.13.0"
-shimmer = "1.3.0"
-voyager = "1.1.0-beta02"
+shimmer = "1.3.2"
+voyager = "1.1.0-beta03"
 koreography = "0.3.0"
-landscapist = "2.4.4"
+landscapist = "2.4.7"
 lottie = "6.5.2"
-retrofit = "2.11.0"
-moshi = "1.15.2"
-okhttp = "4.12.0"
 modalsheet = "0.7.0"
-matisse = "2.1.3"
+matisse = "2.1.4"
 gallery-picker = "1.4.5"
 richtext = "0.20.0"
 capturable = "3.0.0"
 utilcodex = "1.31.1"
-aliyun-oss = "2.9.19"
 compressor = "3.0.1"
-haze = "1.1.1"
+haze = "1.5.0"
+# https://developer.android.com/identity/sign-in/credential-manager-siwg?hl=zh-cn
+credentials = "1.5.0"
+googleid = "1.1.1"
 
 [libraries]
 androidx-compose-bom = { group = "androidx.compose", name = "compose-bom", version.ref = "composeBom" }
@@ -43,20 +48,35 @@ androidx-animation-android = { group = "androidx.compose.animation", name = "ani
 androidx-material3 = { group = "androidx.compose.material3", name = "material3" }
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
+# https://developer.android.com/identity/sign-in/credential-manager-siwg?hl=zh-cn
+androidx-credentials = { group = "androidx.credentials", name = "credentials", version.ref = "credentials" }
+androidx-credentials-play-services-auth = { group = "androidx.credentials", name = "credentials-play-services-auth", version.ref = "credentials" }
+google-id = { module = "com.google.android.libraries.identity.googleid:googleid", version.ref = "googleid" }
+billing-client = { group = "com.android.billingclient", name = "billing-ktx", version.ref = "billing" }
 # 三方库
+ktor-client-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
+ktor-client-cio = { group = "io.ktor", name = "ktor-client-cio", version.ref = "ktor" }
+ktor-client-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
+ktor-serialization-kotlinx-json = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
+# https://github.com/Kotlin/kotlinx.serialization
+kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
+kotlinx-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinx-datetime" }
+# https://supabase.com/docs/reference/kotlin/introduction
+supabase-bom = { module = "io.github.jan-tennert.supabase:bom", version.ref = "supabase-bom" }
+supabase-auth = { module = "io.github.jan-tennert.supabase:auth-kt" }
+supabase-storage = { module = "io.github.jan-tennert.supabase:storage-kt" }
 # 依赖注入 https://insert-koin.io/docs/setup/koin
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-androidx-compose = { module = "io.insert-koin:koin-androidx-compose", version.ref = "koin" }
 mmkv = { module = "com.tencent:mmkv", version.ref = "mmkv" }
-# https://github.com/FunkyMuse/KAHelpers
-kahelpers-common = { module = "com.github.FunkyMuse.KAHelpers:common", version.ref = "kaHelpers" }
-kahelpers-compose-core = { module = "com.github.FunkyMuse.KAHelpers:compose-core", version.ref = "kaHelpers" }
-kahelpers-string = { module = "com.github.FunkyMuse.KAHelpers:string", version.ref = "kaHelpers" }
 # https://github.com/google/accompanist
-accompanis-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanis" }
+accompanist-webview = { module = "com.google.accompanist:accompanist-webview", version.ref = "accompanist" }
+accompanist-permissions = { module = "com.google.accompanist:accompanist-permissions", version.ref = "accompanist" }
 # https://saket.github.io/telephoto/zoomable/
 zoomable = { module = "me.saket.telephoto:zoomable", version.ref = "zoomable" }
+# https://github.com/evergreentree97/easy-shimmer-compose  这个库貌似也可以的
+# https://github.com/valentinilk/compose-shimmer
 shimmer = { module = "com.valentinilk.shimmer:compose-shimmer", version.ref = "shimmer" }
 # https://github.com/sagar-viradiya/koreography
 koreography = { module = "io.github.sagar-viradiya:koreography", version.ref = "koreography" }
@@ -68,13 +88,6 @@ landscapist-coil3 = { module = "com.github.skydoves:landscapist-coil3", version.
 landscapist-animation = { module = "com.github.skydoves:landscapist-animation", version.ref = "landscapist" }
 # http://airbnb.io/lottie/#/android-compose
 lottie-compose = { module = "com.airbnb.android:lottie-compose", version.ref = "lottie" }
-# https://github.com/square/retrofit
-retrofit-core = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
-retrofit-converter-moshi = { module = "com.squareup.retrofit2:converter-moshi", version.ref = "retrofit" }
-# https://github.com/square/moshi
-moshi-kotlin = { module = "com.squareup.moshi:moshi-kotlin", version.ref = "moshi" }
-# https://github.com/square/okhttp
-okhttp-sse = { module = "com.squareup.okhttp3:okhttp-sse", version.ref = "okhttp" }
 # https://github.com/oleksandrbalan/modalsheet
 modalsheet = { module = "io.github.oleksandrbalan:modalsheet", version.ref = "modalsheet" }
 # https://github.com/leavesCZY/Matisse/wiki/%E6%8E%A5%E5%85%A5%E6%8C%87%E5%8D%97
@@ -90,7 +103,6 @@ capturable = { module = "dev.shreyaspatil:capturable", version.ref = "capturable
 # https://github.com/Blankj/AndroidUtilCode
 utilcodex = { module = "com.blankj:utilcodex", version.ref = "utilcodex" }
 # https://help.aliyun.com/document_detail/32043.html
-aliyun-oss = { module = "com.aliyun.dpa:oss-android-sdk", version.ref = "aliyun-oss" }
 # https://github.com/zetbaitsu/Compressor
 compressor = { module = "id.zelory:compressor", version.ref = "compressor" }
 # https://github.com/chrisbanes/haze
@@ -102,6 +114,7 @@ android-application = { id = "com.android.application", version.ref = "agp" }
 kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-compose = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+google-services = {id = "com.google.gms.google-services", version.ref="gms" }
 
 [bundles]
 # bom 放在外面做版本控制声明
@@ -110,22 +123,14 @@ cx-recommend = [
     "koin-android",
     "koin-androidx-compose",
     "mmkv",
-    "kahelpers-common",
-    "kahelpers-compose-core",
-    "kahelpers-string",
-    "accompanis-webview",
+    "accompanist-webview",
+    "accompanist-permissions",
     "zoomable",
     "shimmer",
     "koreography",
     "voyager-navigator",
     "voyager-transitions",
-    "landscapist-coil3",
-    "landscapist-animation",
     "lottie-compose",
-    "retrofit-core",
-    "retrofit-converter-moshi",
-    "moshi-kotlin",
-    "okhttp-sse",
     "modalsheet",
     "matisse",
     "gallery-picker",
@@ -134,8 +139,19 @@ cx-recommend = [
     "richtext-ui-material3",
     "capturable",
     "utilcodex",
-    "aliyun-oss",
     "compressor",
     "haze",
     "haze-materials",
+    "supabase-auth",
+    "supabase-storage",
+]
+cx-kmp = [
+    "ktor-client-core",
+    "ktor-client-cio",
+    "ktor-client-content-negotiation",
+    "ktor-serialization-kotlinx-json",
+    "kotlinx-serialization-json",
+    "kotlinx-datetime",
+    "landscapist-coil3",
+    "landscapist-animation",
 ]

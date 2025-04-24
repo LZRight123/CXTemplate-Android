@@ -9,7 +9,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.fantasy.components.tools.localDelay
 import kotlinx.coroutines.*
 
 @Composable
@@ -43,9 +42,9 @@ fun CCToast(
 
     LaunchedEffect(visible) {
         popupVisible = true
-        localDelay(toastDuration)
+        delay(toastDuration)
         popupVisible = false
-        localDelay(animationDuration.toLong())
+        delay(animationDuration.toLong())
         onVisibleChange(false)
     }
 
@@ -98,9 +97,9 @@ fun <T> CCToast(
             job?.cancel()
             job = launch {
                 lastNonNullData = data
-                localDelay(toastDuration)
+                delay(toastDuration)
                 lastNonNullData = null
-                localDelay(animationDuration.toLong())
+                delay(animationDuration.toLong())
                 onDataChange(null)
             }
 

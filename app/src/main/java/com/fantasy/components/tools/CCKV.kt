@@ -3,16 +3,17 @@ package com.fantasy.components.tools
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import androidx.lifecycle.ViewModel
+import com.fantasy.components.network.ccJson
 import com.tencent.mmkv.MMKV
+import kotlinx.serialization.Serializable
 
-class CCKV private constructor() : ViewModel() {
+val cckv = CCKV()
+
+class CCKV : ViewModel() {
     companion object {
-        @SuppressLint("StaticFieldLeak")
-        val shared = CCKV()
-
         fun start() {
             val rootDir = MMKV.initialize(getContext)
-            cclog("FantasyKV root: $rootDir")
+//            cclog("FantasyKV root: $rootDir")
         }
     }
 
@@ -28,19 +29,19 @@ class CCKV private constructor() : ViewModel() {
 
     fun decodeString(key: String, default: String = ""): String =
         if (inPreview) "" else
-        kv.decodeString(key) ?: default
+            kv.decodeString(key) ?: default
 
     fun decodeBool(key: String, default: Boolean = false): Boolean =
         if (inPreview) false else
-        kv.decodeBool(key) ?: default
+            kv.decodeBool(key) ?: default
 
     fun decodeInt(key: String, default: Int = 0): Int =
         if (inPreview) 0 else
-        kv.decodeInt(key) ?: default
+            kv.decodeInt(key) ?: default
 
-    inline fun <reified T : Parcelable> decodeParcelable(key: String, default: T? = null): T? =
+    inline fun <reified T> decodeSerializable(key: String, default: T? = null): T? =
         if (inPreview) null else
-        kv.decodeParcelable<T>(key, T::class.java, default)
+            kv.decodeString(key)?.let { ccJson.decodeFromString(it) } ?: default
 
     fun removeValueForKey(vararg keys: String) = keys.forEach { kv.removeValueForKey(it) }
 

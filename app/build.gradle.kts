@@ -1,3 +1,4 @@
+import com.android.build.api.dsl.ApplicationBuildType
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -6,14 +7,16 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     id("kotlin-parcelize")
+    kotlin("plugin.serialization") version "2.1.0"
+//    alias(libs.plugins.google.services)
 }
 
 android {
-    namespace = "com.fantasy.cxtemplate"
+    namespace = "com.fantasy.cctemplate"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.fantasy.cxtemplate"
+        applicationId = "com.fantasy.cctemplate"
         minSdk = 29
         targetSdk = 35
         versionCode = getVersionCode()
@@ -39,20 +42,20 @@ android {
 
 
     buildTypes {
-        debug {
-            manifestPlaceholders["network_security_xml"] = "@xml/network_security_config_debug"
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-        release {
+        val commonConfig: ApplicationBuildType.() -> Unit = {
+            signingConfig = signingConfigs["universal"]
             isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+        }
+
+        debug {
+            commonConfig()
+        }
+        release {
+            commonConfig()
         }
     }
     compileOptions {
@@ -70,31 +73,47 @@ android {
     // 多渠道包
 //    flavorDimensions += "channel"
 //    productFlavors {
-//        create("universal") {
-//            dimension = "channel"
-//            manifestPlaceholders["CHANNEL_VALUE"] = "universal"
+//        // 提取公共配置函数，用于创建不同渠道的 flavor
+//        fun createChannelFlavor(flavorName: String) {
+//            create(flavorName) {
+//                dimension = "channel"
+//                manifestPlaceholders["CHANNEL_VALUE"] = flavorName
+//            }
 //        }
 //
-//        create("google") {
-//            dimension = "channel"
-//            manifestPlaceholders["CHANNEL_VALUE"] = "google"
-//        }
-//
-//        create("china") {
-//            dimension = "channel"
-//            manifestPlaceholders["CHANNEL_VALUE"] = "china"
-//        }
+//        createChannelFlavor("universal")
+//        createChannelFlavor("google")
+//        createChannelFlavor("china")
 //    }
 
     androidComponents {
         applicationVariants.all {
-        val variant = this
-        outputs.forEach { output ->
-            val output = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
-            // 方式1：版本号_构建类型
-            output.outputFileName = "v${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+            val variant = this
+            outputs.forEach { output ->
+                val output = output as com.android.build.gradle.internal.api.BaseVariantOutputImpl
+                // 方式1：版本号_构建类型
+                output.outputFileName =
+                    "v${defaultConfig.versionName}_${defaultConfig.versionCode}.apk"
+            }
         }
     }
+
+    // 添加 lint 配置，禁用可能导致问题的检查器
+    lint {
+        disable += listOf(
+            "AccidentalOctal", "AndroidGradlePluginVersion", "AnnotationProcessorOnCompilePath",
+            "BomWithoutPlatform", "UseOfBundledGooglePlayServices", "ChromeOsAbiSupport",
+            "GradleCompatible", "DataBindingWithoutKapt", "GradleDependency", "GradleDeprecated",
+            "GradleDeprecatedConfiguration", "OutdatedLibrary", "DevModeObsolete",
+            "DuplicatePlatformClasses", "EditedTargetSdkVersion", "ExpiredTargetSdkVersion",
+            "ExpiringTargetSdkVersion", "GradleGetter", "GradlePluginVersion", "HighAppVersionCode",
+            "GradleIdeError", "JavaPluginLanguageLevel", "JcenterRepositoryObsolete",
+            "KaptUsageInsteadOfKsp", "KtxExtensionAvailable", "LifecycleAnnotationProcessorWithJava8",
+            "MinSdkTooLow", "SimilarGradleDependency", "NotInterpolated", "GradlePath",
+            "PlaySdkIndexDeprecated", "PlaySdkIndexGenericIssues", "PlaySdkIndexNonCompliant",
+            "PlaySdkIndexVulnerability", "GradleDynamicVersion", "NewerVersionAvailable",
+            "RiskyLibrary", "StringShouldBeInt", "UseTomlInstead", "OldTargetApi"
+        )
     }
 }
 
@@ -118,11 +137,16 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.core.ktx)
+    implementation(libs.google.id)
+    implementation(libs.androidx.credentials)
+    implementation(libs.androidx.credentials.play.services.auth)
+    implementation(libs.billing.client)
     /**
      * 三方
      */
+    implementation(platform(libs.supabase.bom))
     implementation(libs.bundles.cx.recommend)
-
+    implementation(libs.bundles.cx.kmp)
 }
 
 
@@ -152,10 +176,11 @@ fun getVersionCode(): Int {
     if (versionFile.canRead()) {
         val properties = Properties()
         properties.load(FileInputStream(versionFile))
-        val versionCode = properties["VERSION_CODE"].toString().toInt() // 读取 version.properties 文件存放的版本号
+        val versionCode =
+            properties["VERSION_CODE"].toString().toInt() // 读取 version.properties 文件存放的版本号
         val runTasks = gradle.startParameter.taskNames
 
-        if (runTasks.contains("buildMyDebug") || runTasks.contains("buildMyRelease")) {
+        if (runTasks.contains("buildMyRelease")) {
             // 仅在每次打 debug 包或 release 包的时候增加版本号，普通运行下无法自增长
             properties["VERSION_CODE"] = (versionCode + 1).toString()
             properties.store(versionFile.writer(), null)

@@ -10,6 +10,16 @@ import java.util.concurrent.ConcurrentHashMap
 object  SharedFlowBusKey {
     const val test = "test"
 
+    const val MealDelete = "MealDelete"
+    const val MealUpdate = "MealUpdate"
+    const val MealSavedNew = "MealSavedNew"
+    const val FolderUpdate = "FolderUpdate"
+    const val FolderDelete = "FolderDelete"
+    const val CollectionUpdate = "CollectionUpdate"
+    const val CollectionDelete = "CollectionDelete"
+
+    const val CardExchange = "CardExchange"
+
 }
 
 object SharedFlowBus {
@@ -23,19 +33,8 @@ object SharedFlowBus {
         return events[objectKey] as MutableSharedFlow<T>
     }
 
-    fun <T> withSticky(objectKey: String): MutableSharedFlow<T> {
-        if (!stickyEvents.containsKey(objectKey)) {
-            stickyEvents[objectKey] = MutableSharedFlow(1, 1, BufferOverflow.DROP_OLDEST)
-        }
-        return stickyEvents[objectKey] as MutableSharedFlow<T>
-    }
-
     fun <T> on(objectKey: String): SharedFlow<T> {
         return with(objectKey)
-    }
-
-    fun <T> onSticky(objectKey: String): SharedFlow<T> {
-        return withSticky(objectKey)
     }
 
     private fun using() {
@@ -46,5 +45,16 @@ object SharedFlowBus {
 
             }
         }
+    }
+
+    fun <T> withSticky(objectKey: String): MutableSharedFlow<T> {
+        if (!stickyEvents.containsKey(objectKey)) {
+            stickyEvents[objectKey] = MutableSharedFlow(1, 1, BufferOverflow.DROP_OLDEST)
+        }
+        return stickyEvents[objectKey] as MutableSharedFlow<T>
+    }
+
+    fun <T> onSticky(objectKey: String): SharedFlow<T> {
+        return withSticky(objectKey)
     }
 }

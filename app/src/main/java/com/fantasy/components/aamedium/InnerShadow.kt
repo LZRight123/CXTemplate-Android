@@ -103,23 +103,25 @@ private fun Modifier.outerShadow(
     drawContent()
 }
 
+@Composable
 fun Modifier.innerShadow(
     shape: Shape = RectangleShape,
-    color: Color = Color.Black,
+    color: Color = CCColor.f1.copy(0.1f),
     radius: Int = 4,
-    offsetY: Int = 0,
-    offsetX: Int = 0,
+    y: Int = 0,
+    x: Int = 0,
     spread: Int = 0
-) = innerShadow(shape, color, radius.dp, offsetY.dp, offsetX.dp, spread.dp)
+) = innerShadow(shape, color, radius.dp, y.dp, x.dp, spread.dp)
 
+@Composable
 fun Modifier.outerShadow(
     shape: Shape = RectangleShape,
-    color: Color = Color.Black,
+    color: Color = CCColor.f1.copy(0.1f),
     radius: Int = 4,
-    offsetY: Int = 0,
-    offsetX: Int = 0,
+    y: Int = 0,
+    x: Int = 0,
     spread: Int = 0
-) = outerShadow(shape, color, radius.dp, offsetY.dp, offsetX.dp, spread.dp)
+) = outerShadow(shape, color, radius.dp, y.dp, x.dp, spread.dp)
 
 @Preview(showBackground = true)
 @Composable
@@ -131,8 +133,8 @@ private fun _preview() {
                 shape = RectangleShape,
                 color = CCColor.random,
                 radius = 10,
-                offsetY = -5,
-                offsetX = -5,
+                y = -5,
+                x = -5,
                 spread = 10
             )
             .size(200.dp))
@@ -142,8 +144,8 @@ private fun _preview() {
             .outerShadow(
                 shape = RectangleShape,
                 radius = 0,
-                offsetY = 10,
-                offsetX = 10,
+                y = 10,
+                x = 10,
                 spread = 1
             )
             .size(200.dp)

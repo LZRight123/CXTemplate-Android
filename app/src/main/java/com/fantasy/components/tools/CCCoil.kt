@@ -89,7 +89,7 @@ class CCCoil private constructor() : ViewModel() {
                 .build()
         }
 
-        cclog("coil set imageLoader")
+//        cclog("coil set imageLoader")
     }
 }
 

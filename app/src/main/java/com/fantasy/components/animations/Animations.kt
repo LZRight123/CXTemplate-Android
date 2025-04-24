@@ -4,6 +4,7 @@ import androidx.compose.animation.core.Animatable
 import androidx.compose.animation.core.AnimationSpec
 import androidx.compose.animation.core.EaseOutElastic
 import androidx.compose.animation.core.LinearEasing
+import androidx.compose.animation.core.Spring
 import androidx.compose.animation.core.spring
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
@@ -21,28 +22,32 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fantasy.components.theme.CCColor
 import com.fantasy.components.tools.screenHeight
-import com.fantasy.components.tools.screenWith
+import com.fantasy.components.tools.screenWidth
 import com.fantasy.components.tools.toPx
 import com.fantasy.components.widget.PreviewScreen
 import io.github.sagar_viradiya.rememberKoreography
 
 
+@Composable
 fun Modifier.ccSlideInVertically(
     show: Boolean = true,
     duration: Int = 600,
     delay: Int = 0,
     reverse: Boolean = false, // 反向，默认从下方进入
+    initPosition: Int = screenHeight,
+    springPosition: Int = -5,
     animationSpec: AnimationSpec<Float> = spring(),
     onDismissFinished: () -> Unit = {}
 ) = composed {
     val l = LocalInspectionMode.current
     val vector = if (reverse) -1 else 1
-    val h = screenHeight.toPx() * vector
+    val h = initPosition.toPx() * vector
+    val springH = springPosition.toPx()
     val ty = remember {
         Animatable(if (l) 0f else h)
     }
     val koin = rememberKoreography {
-        move(ty, -20f * vector, animationSpec = tween(duration, delay))
+        move(ty, springH * vector, animationSpec = tween(duration, delay))
         move(ty, 0f, animationSpec = animationSpec)
     }
     val koout = rememberKoreography {
@@ -69,17 +74,19 @@ fun Modifier.ccSlideInHorizontally(
     duration: Int = 600,
     delay: Int = 0,
     reverse: Boolean = false, // 反向，默认从右边进入
-    initPosition: Int = screenWith,
+    initPosition: Int = screenWidth,
+    springPosition: Int = -5,
     onDismissFinished: () -> Unit = {}
 ) = composed {
     val l = LocalInspectionMode.current
     val vector = if (reverse) -1 else 1
     val w = initPosition.toPx() * vector
+    val springW = springPosition.toPx()
     val tx = remember {
         Animatable(if (l) 0f else w)
     }
     val koin = rememberKoreography {
-        move(tx, -20f * vector, animationSpec = tween(duration, delay))
+        move(tx, springW * vector, animationSpec = tween(duration, delay))
         move(tx, 0f, animationSpec = spring(dampingRatio = 0.5f))
     }
     val koout = rememberKoreography {
@@ -131,14 +138,17 @@ fun Modifier.ccAlphaIn(
 fun Modifier.ccScaleIn(
     show: Boolean = true,
     duration: Int = 600,
+    initScale: Float = 0f,
+    springScale: Float = 1.05f,
     delay: Int = 0,
 ) = composed {
     val l = LocalInspectionMode.current
     val sc = remember {
-        Animatable(if (l) 1f else 0f)
+        Animatable(if (l) 1f else initScale)
     }
     val koin = rememberKoreography {
-        move(sc, 1f, animationSpec = tween(duration, delay))
+        move(sc, springScale, animationSpec = tween(duration, delay))
+        move(sc, 1f, animationSpec = spring(dampingRatio = Spring.DampingRatioLowBouncy))
     }
     val koout = rememberKoreography {
         move(sc, 1f, animationSpec = tween(0))

@@ -1,6 +1,7 @@
 package com.fantasy.components.extension
 
 import android.net.Uri
+import androidx.compose.ui.graphics.Color
 import com.blankj.utilcode.util.EncodeUtils
 import java.math.BigInteger
 import java.security.MessageDigest
@@ -8,7 +9,7 @@ import java.security.MessageDigest
 val mockImage: String
     get() {
         val int = (180..220).random()
-        return "https://picsum.photos/${int}/${int}"
+        return "https://picsum.photos/${int}"
     }
 
 // HORIZONTAL ELLIPSIS (…)
@@ -61,10 +62,48 @@ fun String.verifyUsername(): String? {
     }
 }
 
+val String.color: Color get() {
+    val colorString = this.removePrefix("#")
+    return when(colorString.length) {
+        6 -> Color(
+            red = colorString.substring(0, 2).toInt(16) / 255f,
+            green = colorString.substring(2, 4).toInt(16) / 255f,
+            blue = colorString.substring(4, 6).toInt(16) / 255f
+        )
+        8 -> Color(
+            alpha = colorString.substring(0, 2).toInt(16) / 255f,
+            red = colorString.substring(2, 4).toInt(16) / 255f,
+            green = colorString.substring(4, 6).toInt(16) / 255f,
+            blue = colorString.substring(6, 8).toInt(16) / 255f
+        )
+        else -> Color(0xFF000000)
+    }
+}
+
+fun String.cleanJsonString(): String {
+    // 去除字符串前后的空白
+    val trimmed = trim()
+
+    // 正则表达式匹配开头的一个或多个反引号(`)，后面可能跟着语言标识符
+    val startPattern = "^`+(?:\\w+)?"
+
+    // 正则表达式匹配结尾的一个或多个反引号(`)
+    val endPattern = "`+$"
+
+    // 先移除开头的反引号
+    val noStartBackticks = trimmed.replace(Regex(startPattern), "")
+
+    // 再移除结尾的反引号
+    val noBackticks = noStartBackticks.replace(Regex(endPattern), "")
+
+    // 最后再次去除可能的空白
+    return noBackticks.trim()
+}
+
 
 val String.base64Encoded get() = EncodeUtils.base64Encode2String(toByteArray())
 
-fun randomString(length: Int): String {
+fun randomString(min: Int = 6, max: Int = min): String {
     val charset = """
         道可道，非常道。名可名，非常名。无名天地之始；有名万物之母。故常无欲，以观其妙；常有欲，以观其徼。此两者，同出而异名，同谓之玄。玄之又玄，衆妙之门。
         天下皆知美之为美，斯恶已。皆知善之为善，斯不善已。故有无相生，难易相成，长短相较，高下相倾，音声相和，前后相随。是以圣人处无为之事，行不言之教；万物作焉而不辞，生而不有。为而不恃，功成而弗居。夫唯弗居，是以不去。
@@ -149,7 +188,57 @@ fun randomString(length: Int): String {
         信言不美，美言不信。善者不辩，辩者不善。知者不博，博者不知。圣人不积，既以为人己愈有，既以与人己愈多。天之道，利而不害；圣人之道，为而不争。
     """.trimIndent()
         .replace("[\\s，；。？]".toRegex(), "")
+
+
+    val length = (min..max).random()
     return (1..length)
         .map { charset.random() }
         .joinToString("")
 }
+
+fun randomEmoji(): String = listOf(
+    // 食物类 (约120个)
+    "🍇", "🍈", "🍉", "🍊", "🍋", "🍌", "🍍", "🥭", "🍎", "🍏",
+    "🍐", "🍑", "🍒", "🍓", "🥝", "🍅", "🥥", "🥑", "🍆", "🥔",
+    "🥕", "🌽", "🌶️", "🥒", "🥬", "🥦", "🧄", "🧅", "🍄", "🥜",
+    "🌰", "🍞", "🥐", "🥖", "🥨", "🥯", "🥞", "🧇", "🧀", "🍖",
+    "🍗", "🥩", "🥓", "🍔", "🍟", "🍕", "🌭", "🥪", "🌮", "🌯",
+    "🥙", "🧆", "🥚", "🍳", "🥘", "🍲", "🥣", "🥗", "🍿", "🧈",
+    "🧂", "🥫", "🍱", "🍘", "🍙", "🍚", "🍛", "🍜", "🍝", "🍠",
+    "🍢", "🍣", "🍤", "🍥", "🥮", "🍡", "🥟", "🥠", "🥡", "🦪",
+    "🍦", "🍧", "🍨", "🍩", "🍪", "🎂", "🍰", "🧁", "🥧", "🍫",
+    "🍬", "🍭", "🍮", "🍯", "🍼", "🥛", "🍵", "🍶", "🍾", "🍷",
+    "🍸", "🍹", "🍺", "🍻", "🥂", "🥃", "🥄", "🍴", "🍽️", "🥢",
+    "🧊",
+
+    // 动物类 (约100个)
+    "🐶", "🐱", "🐭", "🐹", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯",
+    "🦁", "🐮", "🐷", "🐽", "🐸", "🐵", "🙈", "🙉", "🙊", "🐒",
+    "🐔", "🐧", "🐦", "🐤", "🐣", "🐥", "🦆", "🦅", "🦉", "🦇",
+    "🐺", "🐗", "🐴", "🦄", "🐝", "🐛", "🦋", "🐌", "🐞", "🐜",
+    "🦟", "🦗", "🕷️", "🕸️", "🦂", "🐢", "🐍", "🦎", "🦖", "🦕",
+    "🐙", "🦑", "🦐", "🦞", "🦀", "🐡", "🐠", "🐟", "🐬", "🐳",
+    "🐋", "🦈", "🐊", "🐅", "🐆", "🦓", "🦍", "🦧", "🐘", "🦛",
+    "🦏", "🐪", "🐫", "🦒", "🦘", "🦬", "🐃", "🐂", "🐄", "🐎",
+    "🐖", "🐏", "🐑", "🦙", "🐐", "🦌", "🐕", "🐩", "🦮", "🐕‍🦺",
+    "🐈", "🐈‍⬛", "🪶", "🐓", "🦃", "🦤", "🦚", "🦜", "🦢", "🦩",
+    "🕊️", "🐇", "🦝", "🦨", "🦡", "🦫", "🦦", "🦥", "🐁", "🐀",
+
+//    // 活动和体育类 (约60个)
+//    "⚽", "🏀", "🏈", "⚾", "🥎", "🎾", "🏐", "🏉", "🎱", "🏓",
+//    "🏸", "🥅", "🏒", "🏑", "🥍", "🏏", "⛳", "🎣", "🥊", "🥋",
+//    "🎽", "🛹", "🛼", "🛷", "⛸️", "🥌", "🎿", "⛷️", "🏂", "🪂",
+//    "🏋️", "🏋️‍♀️", "🏋️‍♂️", "🤼", "🤼‍♀️", "🤼‍♂️", "🤸", "🤸‍♀️", "🤸‍♂️", "⛹️",
+//    "⛹️‍♀️", "⛹️‍♂️", "🤺", "🤾", "🤾‍♀️", "🤾‍♂️", "🏌️", "🏌️‍♀️", "🏌️‍♂️", "🏇",
+//    "🧘", "🧘‍♀️", "🧘‍♂️", "🏄", "🏄‍♀️", "🏄‍♂️", "🏊", "🏊‍♀️", "🏊‍♂️", "🤽",
+//
+//    // 旅行和地点类 (约80个)
+//    "🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓", "🚑", "🚒", "🚐",
+//    "🚚", "🚛", "🚜", "🛴", "🚲", "🛵", "🏍️", "🚨", "🚔", "🚍",
+//    "🚘", "🚖", "🚡", "🚠", "🚟", "🚃", "🚋", "🚞", "🚝", "🚄",
+//    "🚅", "🚈", "🚂", "🚆", "🚇", "🚊", "🚉", "🚁", "🛩️", "✈️",
+//    "🛫", "🛬", "🚀", "🛸", "🚁", "⛵", "🛥️", "🚤", "⛴️", "🛳️",
+//    "🚢", "⚓", "🪝", "⛽", "🚧", "🚦", "🚥", "🚏", "🗺️", "🗿",
+//    "🗽", "🗼", "🏰", "🏯", "🏟️", "🎡", "🎢", "🎠", "⛲", "⛱️",
+//    "🏖️", "🏝️", "🏜️", "🌋", "⛰️", "🏔️", "🗻", "🏕️", "⛺", "🏠"
+).random()

@@ -24,12 +24,23 @@ vm.refresh()
 }
 ) {
 LazyColumn() {
-itemsIndexed(vm.items) { index, message ->
+
+
+
+
+
+itemsIndexed(vm.items) { index, item ->
 if (index >= vm.items.size - 1 && vm.canLoad) {
 vm.loadNextItems()
 }
 }
 item { CCRefreshFooter(vm = vm) }
+
+
+
+
+
+
 }
 }
  */

@@ -3,6 +3,7 @@ package com.fantasy.components.widget
 
 import android.graphics.Bitmap
 import androidx.annotation.DrawableRes
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,6 +12,8 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.asAndroidBitmap
 import androidx.compose.ui.graphics.asImageBitmap
@@ -21,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import coil3.request.ImageRequest
+import com.fantasy.components.extension.compose.ifNotNull
 import com.fantasy.components.extension.mockImage
 import com.fantasy.components.theme.CCColor
 import com.skydoves.landscapist.ImageOptions
@@ -30,6 +34,7 @@ import com.skydoves.landscapist.coil3.CoilImageState
 import com.skydoves.landscapist.components.ImageComponent
 import com.skydoves.landscapist.components.rememberImageComponent
 import com.skydoves.landscapist.plugins.ImagePlugin
+import com.valentinilk.shimmer.shimmer
 
 /**
  * 图片处理学习文档
@@ -43,7 +48,7 @@ fun CCCoilImage(
     imageLoadAnimation: Boolean = false,
     component: ImageComponent = rememberImageComponent {
         if (imageLoadAnimation) {
-            +CrossfadePlugin(duration = 200)
+            +CrossfadePlugin(duration = 300)
         }
     },
     requestListener: (() -> ImageRequest.Listener)? = null,
@@ -51,26 +56,55 @@ fun CCCoilImage(
     onImageStateChanged: (CoilImageState) -> Unit = {},
     @DrawableRes previewPlaceholder: Int = 0,
     loading: @Composable (BoxScope.(imageState: CoilImageState.Loading) -> Unit)? = {
-        coilCircularLoading()
+        coilShimmerLoading()
     },
     success: @Composable (BoxScope.(imageState: CoilImageState.Success, painter: Painter) -> Unit)? = null,
     failure: @Composable (BoxScope.(imageState: CoilImageState.Failure) -> Unit)? = {
-        coilCircularLoading()
+        coilShimmerLoading()
     },
 ) {
     CoilImage(
         imageModel = model,
-        modifier = modifier,
         component = component,
         requestListener = requestListener,
         imageOptions = imageOptions,
         onImageStateChanged = onImageStateChanged,
-        previewPlaceholder = if (previewPlaceholder == 0) ColorPainter(color = CCColor.random) else painterResource(id = previewPlaceholder),
+        modifier = modifier,
+        // ColorPainter(CCColor.random)
+        previewPlaceholder = if (previewPlaceholder == 0) ColorPainter(CCColor.random) else painterResource(
+            id = previewPlaceholder
+        ),
         loading = loading,
         success = success,
         failure = failure,
     )
 }
+
+@Composable
+fun BoxScope.coilShimmerLoading() {
+    Box(
+        modifier = Modifier
+            .background(CCColor.b1_t)
+            .background(
+                brush = Brush.verticalGradient(
+                    colors = listOf(
+                        CCColor.f1.copy(0f),
+                        CCColor.f1.copy(0.02f),
+                        CCColor.f1.copy(0.04f),
+                        CCColor.f1.copy(0.06f),
+                        CCColor.f1.copy(0.08f),
+                        CCColor.f1.copy(0.1f),
+                        CCColor.f1.copy(0.12f),
+                        CCColor.f1.copy(0.14f),
+                    )
+                )
+            )
+            .shimmer()
+            .background(CCColor.b1_t)
+            .matchParentSize()
+    )
+}
+
 
 @Composable
 fun BoxScope.coilCircularLoading() {
@@ -118,15 +152,17 @@ data class PixelateTransformationPlugin(
 }
 
 
-
-@Preview(showBackground = true)
+@Preview(showBackground = false)
 @Composable
 private fun Preview() {
-    CCCoilImage(
-        model = { mockImage },
-        modifier = Modifier.size(200.dp)
-    )
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        coilCircularLoading()
+    PreviewScreen(backgroundColor = CCColor.b2) {
+        CCCoilImage(
+            model = { mockImage },
+            modifier = Modifier.size(200.dp)
+        )
+        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+            coilCircularLoading()
+        }
     }
+
 }

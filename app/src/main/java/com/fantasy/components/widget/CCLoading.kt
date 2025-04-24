@@ -3,14 +3,16 @@ package com.fantasy.components.widget
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.fantasy.components.extension.compose.consumeClicks
-import com.fantasy.components.tools.screenWith
-import com.fantasy.cxtemplate.R
+import com.fantasy.components.theme.CCColor
+import com.fantasy.cctemplate.R
 
 
 /**
@@ -32,10 +34,18 @@ fun CCLoading(// Can click outside
                 .fillMaxSize(),
             contentAlignment = Alignment.Center
         ) {
-            CCLottieView(
-                modifier = Modifier.size((screenWith * 0.618).dp),
-                resId = resId,
+
+            CircularProgressIndicator(
+                modifier = Modifier.size(24.dp),
+                color = CCColor.f3,
+                strokeWidth = 3.dp,
+                strokeCap = StrokeCap.Round,
             )
+
+//            CCLottieView(
+//                modifier = Modifier.size(80.dp),
+//                resId = resId,
+//            )
         }
     }
 }
